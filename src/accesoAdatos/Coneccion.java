@@ -15,9 +15,12 @@ public class Coneccion {
     public static final String URL = "jdbc:mysql://us-phx-web776.main-hosting.eu:3306/u351249038_universidadULP";
     public static final String USER = "u351249038_FaQPro";
     public static final String PASS = "Facu@2023";
+    //agrego esta linea porque no puedo acceder al metodo getConection desde otra clase
+    private static Connection connection;
     PreparedStatement ps;
     ResultSet rs;
-    public Connection getConnection(){
+    //agregue el static en la parte de abajo
+    public static Connection getConnection(){
         Connection conexion=null;
         try{
             
