@@ -25,14 +25,20 @@ public class MateriaData {
         con=Coneccion.getConnection();
     }
     public void guardarMateria(Materia materia){
-        String sql= "INSERT INTO materia (Nombre, año,estado) VALUES (? , ?, ? ,?)";
+        String sql= "INSERT INTO materia (Nombre, año,estado) VALUES (? , ?, ?)";
         try {
             //esto de aca abajo es por no usar el driver de mariaDb
             PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, Materia.getNombre());
-            
-            
-            
+            ps.setString(1,materia.getNombre());
+            ps.setInt(2, materia.getAño());
+            ps.setBoolean(3, materia.isEstado());
+            ps.executeUpdate();
+            ResultSet rs=ps.getGeneratedKeys();
+            if (rs.next()){
+                materia.setIdMateria(rs.getInt(1));
+                JOptionPane.showMessageDialog(null,"Materia Guardada correctamente");
+            }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error conectando a BD");
         }
