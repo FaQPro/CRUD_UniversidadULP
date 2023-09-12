@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< Updated upstream
-            <file>file:/C:/Users/perey/Documents/GitHub/CRUD_UniversidadULP/src/accesoAdatos/MateriaData.java</file>
-=======
-            <file>file:/G:/Argentina%20Programa/Java%20P%202/TP%20conjunto/CRUD_UniversidadULP-main/src/universidadAPP/FormularioAlumno.java</file>
-            <file>file:/G:/Argentina%20Programa/Java%20P%202/TP%20conjunto/CRUD_UniversidadULP-main/src/universidadAPP/Alumno.java</file>
-            <file>file:/G:/Argentina%20Programa/Java%20P%202/TP%20conjunto/CRUD_UniversidadULP-main/src/universidadAPP/PantallaPrincipal.java</file>
->>>>>>> Stashed changes
+            <file>file:/home/rodrigo/Documentos/GitHub/CRUD_UniversidadULP/src/universidadAPP/Entidades/Inscripcion.java</file>
+            <file>file:/home/rodrigo/Documentos/GitHub/CRUD_UniversidadULP/src/accesoAdatos/MateriaData.java</file>
+            <file>file:/home/rodrigo/Documentos/GitHub/CRUD_UniversidadULP/src/universidadAPP/Entidades/Materia.java</file>
+            <file>file:/home/rodrigo/Documentos/GitHub/CRUD_UniversidadULP/src/accesoAdatos/Coneccion.java</file>
+            <file>file:/home/rodrigo/Documentos/GitHub/CRUD_UniversidadULP/src/universidadAPP/Entidades/Ealumno.java</file>
+            <file>file:/home/rodrigo/Documentos/GitHub/CRUD_UniversidadULP/src/universidadAPP/Alumno.java</file>
         </group>
     </open-files>
 </project-private>

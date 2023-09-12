@@ -5,6 +5,9 @@
  */
 package universidadAPP;
 
+import accesoAdatos.MateriaData;
+import universidadAPP.Entidades.Materia;
+
 /**
  *
  * @author perey
@@ -211,6 +214,30 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+     //*****CODIGO PARA AGREGAR UNA MATERIA
+        //creo un objeto materia
+        //Materia logica=new Materia("Logica",2,true);
+        //pruebo llamar al metodo guardarmateria de MateriaData
+        //accesoAdatos.MateriaData mat=new MateriaData();
+        //mat.guardarMateria(logica);
+        
+        //-----------------------------------------
+        // CODIGO PARA MODIFICAR UNA MATERIA....
+        
+        //SIMULO QUE TRAJE UNA MATERIA DE LA VISTA
+        //Materia logica=new Materia(7,"Logica",4,true);
+        //CREO UN OBJETO DE TIPO MATERIA DATA
+        //accesoAdatos.MateriaData mat=new MateriaData();
+        //LLAMO AL METODO MODIFICAR MATERIA Y LE PASO EL OBJETO MATERIA CON LOS DATOS NUEVOS        
+       // mat.modificarMateria(logica);
+        
+        
+        
+        
+       
+        
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
