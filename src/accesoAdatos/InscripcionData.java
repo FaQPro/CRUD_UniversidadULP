@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import universidadAPP.Entidades.Inscripcion;
 import accesoAdatos.MateriaData;
-import.accesoAdatos.AlumnoData;
+import accesoAdatos.AlumnoData;
 /**
  *
  * @author perey
@@ -28,7 +28,7 @@ public class InscripcionData {
     public InscripcionData() {
         con = Coneccion.getConnection();
     }
-    public List <Materia> obtenerMateriasCursadas(int id) {
+   /* public List <Materia> obtenerMateriasCursadas(int id) {
         List<Materia> materias = new ArrayList<Materia>();
 
         try {
@@ -56,5 +56,5 @@ public class InscripcionData {
 
 return materias;
     }
-
+*/
 }
