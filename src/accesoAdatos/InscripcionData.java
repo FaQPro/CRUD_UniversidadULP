@@ -57,4 +57,18 @@ public class InscripcionData {
 return materias;
     }
 */
+    public void guardarInscripcion(Inscripcion insc){
+        
+        
+    }
+    public void borrarInscripcionMateriaAlumno(int idAlumno,int idMateria){
+        
+        
+    }
+    
+    public void actualizarNota(int idAlumno,int idMateria,double nota){
+        
+        
+        
+    }
 }
