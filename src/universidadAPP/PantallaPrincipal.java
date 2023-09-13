@@ -232,6 +232,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         //LLAMO AL METODO MODIFICAR MATERIA Y LE PASO EL OBJETO MATERIA CON LOS DATOS NUEVOS        
        // mat.modificarMateria(logica);
         
+       //*****CODIGO PARA DAR BAJA LOGICA A UNA MATERIA (CAMBIAR ESTADO A FALSE)
+        //SIMULO QUE TRAJE UNA MATERIA DE LA VISTA
+        //Materia logica=new Materia(7,"Logica",4,true);
+        //CREO UN OBJETO DE TIPO MATERIA DATA
+        //accesoAdatos.MateriaData mat=new MateriaData();
+        //llamo al metodo baja materia
+       // mat.bajaMateria(logica);
+        
         
         
         

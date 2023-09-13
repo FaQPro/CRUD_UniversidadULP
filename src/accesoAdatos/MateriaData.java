@@ -64,9 +64,23 @@ public class MateriaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al conectar");
         }
+    }
     
-            
+    public void bajaMateria(Materia materia)        {
+        String sql="UPDATE materia SET estado= false WHERE idMateria= ?";
+        try {
+            PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1,materia.getIdMateria());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Materia dada de Baja");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al conectar");
+        }
+        
+        
+    }
             
             
     }
-}
+
