@@ -197,7 +197,9 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbguardarActionPerformed
 
     private void jbnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnuevoActionPerformed
-        // TODO add your handling code here:
+        
+
+// TODO add your handling code here:
     }//GEN-LAST:event_jbnuevoActionPerformed
 
     private void jbsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbsalirActionPerformed

@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import universidadAPP.Entidades.Inscripcion;
 import accesoAdatos.MateriaData;
 import accesoAdatos.AlumnoData;
+import java.sql.ResultSet;
+
 /**
  *
  * @author perey
@@ -58,17 +60,71 @@ return materias;
     }
 */
     public void guardarInscripcion(Inscripcion insc){
+        try {
+            String sql = "INSERT INTO inscripcion(idAlumno , idMateria,nota)VALUES (?,?,?)";
+            PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1,insc.getAlumno().getIdAlumno());
+            ps.setInt(2,insc.getMateria().getIdMateria());
+            ps.setDouble(3,insc.getNota());
+            ps.executeUpdate();
+            ResultSet rs;
+                 rs=ps.getGeneratedKeys();
+           if (rs.next()){
+              insc.setIdInscripto(rs.getInt(1));
+              JOptionPane.showMessageDialog(null,"Inscripcion realizada con exito");
+               
+           } 
+           ps.close();
+            
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,"Error al acceder a la Base de Datos");
+        }
         
         
     }
     public void borrarInscripcionMateriaAlumno(int idAlumno,int idMateria){
+        
+        try {
+            String sql = "DELETE FROM inscripcion WHERE idAlumno = ? and idMateria = ?";
+           PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+           ps.setInt(1, idAlumno);
+           ps.setInt(2, idMateria);
+           int aux = ps.executeUpdate();
+           if (aux>0){
+               JOptionPane.showMessageDialog(null,"Inscripcion borrada con exito");
+               
+               
+           }
+           ps.close();
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,"Error al acceder a la Base de Datos");
+        } 
+            
         
         
     }
     
     public void actualizarNota(int idAlumno,int idMateria,double nota){
         
-        
+        try {
+            String sql="UPDATE inscripcion SET nota = ? WHERE idAlumno = ? and idMateria = ?";
+            PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+            ps.setDouble(1,nota);
+            ps.setInt(2, idAlumno);
+            ps.setInt(3, idMateria);
+           int filas = ps.executeUpdate();
+           
+           if (filas>0){
+               
+               JOptionPane.showMessageDialog(null,"Nota actualizada con exito");
+               
+               
+           }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al acceder a la Base de Datos");
+        }
         
     }
+
+    
 }
