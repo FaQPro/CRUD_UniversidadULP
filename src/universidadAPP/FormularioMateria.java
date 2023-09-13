@@ -40,7 +40,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         jtnom = new javax.swing.JTextField();
         jtaño = new javax.swing.JTextField();
         jbb = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jRestadoMat = new javax.swing.JRadioButton();
 
         jLabel1.setText("Materia");
 
@@ -93,7 +93,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jbb))
                                     .addComponent(jtaño, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jRadioButton1))
+                                    .addComponent(jRestadoMat))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
@@ -127,7 +127,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jRadioButton1))
+                    .addComponent(jRestadoMat))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbn)
@@ -152,7 +152,7 @@ this.dispose();
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRestadoMat;
     private javax.swing.JButton jbb;
     private javax.swing.JButton jbe;
     private javax.swing.JButton jbg;
