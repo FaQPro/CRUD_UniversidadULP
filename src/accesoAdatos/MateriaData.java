@@ -19,7 +19,7 @@ import universidadAPP.Entidades.Materia;
  * @author rodrigo
  */
 public class MateriaData {
-    private Connection con=null;
+    public Connection con=null;
     
     public MateriaData(){
         con=Coneccion.getConnection();
