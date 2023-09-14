@@ -7,7 +7,7 @@ package accesoAdatos;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
-import java.awt.List;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import universidadAPP.Entidades.Inscripcion;
 import accesoAdatos.MateriaData;
 import accesoAdatos.AlumnoData;
 import java.sql.ResultSet;
+import universidadAPP.Entidades.Materia;
 
 /**
  *
@@ -26,9 +27,38 @@ import java.sql.ResultSet;
 public class InscripcionData {
 
     private Connection con = null;
-
+    private AlumnoData alumD = new AlumnoData();
+    private MateriaData matD = new MateriaData();
     public InscripcionData() {
         con = Coneccion.getConnection();
+    }
+    
+    public List<Inscripcion> obtenerInscripciones(){
+        
+       ArrayList<Inscripcion> actuales = new ArrayList<>();
+       String sql ="SELECT * FROM inscripcion";
+       
+       
+        try {
+            PreparedStatement ps= (PreparedStatement) con.prepareStatement(sql);
+            
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Inscripcion insc=new  Inscripcion();
+                insc.setIdInscripto(rs.getInt("idInscripto"));
+            //    Alumno alu=alumD.buscarAlumno(rs.getInt("idAlumno")); aguardo metodo buscar alumno
+            //    Materia mat = matD.buscarMateria(rs.getInt("idMateria")) ; aguardo metodo buscar materia
+           // insc.setAlumno(alu);
+          //  insc.setMateria(mat);
+            insc.setNota(rs.getDouble("nota"));
+            actuales.add(insc);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en conexion a Base de Datos");
+        }
+        return actuales;
+        
     }
    /* public List <Materia> obtenerMateriasCursadas(int id) {
         List<Materia> materias = new ArrayList<Materia>();

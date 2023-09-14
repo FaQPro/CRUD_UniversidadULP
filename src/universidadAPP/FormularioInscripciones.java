@@ -113,17 +113,17 @@ public class FormularioInscripciones extends javax.swing.JInternalFrame {
                         .addComponent(jbanular)
                         .addGap(41, 41, 41)
                         .addComponent(jbSalir)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29)
+                .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jcbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -136,7 +136,7 @@ public class FormularioInscripciones extends javax.swing.JInternalFrame {
                     .addComponent(jbinscribir)
                     .addComponent(jbanular)
                     .addComponent(jbSalir))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         pack();
