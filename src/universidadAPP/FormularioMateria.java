@@ -5,7 +5,14 @@
  */
 package universidadAPP;
 
+import accesoAdatos.Coneccion;
 import accesoAdatos.MateriaData;
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import universidadAPP.Entidades.Materia;
 
@@ -76,9 +83,12 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
             }
         });
 
-        jtcodigo.setEditable(false);
-
         jbb.setText("Buscar");
+        jbb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbbActionPerformed(evt);
+            }
+        });
 
         jRestadoMat.setSelected(true);
 
@@ -188,18 +198,63 @@ this.dispose();
                     
                     
     }//GEN-LAST:event_jbnActionPerformed
-     
-        
-        
-    
-        
-    
-    
-        
-        
-        
-        
     }
+    
+    private void jbbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbbActionPerformed
+        String codMat=jtcodigo.getText();
+        if (codMat.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Debe ingresar el codigo de la materia a buscar");
+        }else{
+        int idMat= Integer.parseInt(codMat);
+        String nomMat="";
+        int añoMat=0;
+        boolean estMat=true;
+        MateriaData mat=new MateriaData();
+        
+        String sql= "SELECT * FROM materia Where Idmateria= ?";
+        PreparedStatement ps;
+            try {
+                ps = (PreparedStatement) mat.con.prepareStatement(sql);
+                ps.setInt(1, idMat);
+                ResultSet rs=ps.executeQuery();
+                while (rs.next()){
+                    jtnom.setText(rs.getString(2));
+                    jtaño.setText(rs.getString(3));
+                    estMat=rs.getBoolean(4);
+                    if(estMat==true){
+                        jRestadoMat.setSelected(true);
+                        
+                    }else {
+                        jRestadoMat.setSelected(false);
+                    }
+                    
+                }
+                
+                
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this,"error");
+            }
+        
+        
+        
+        
+        
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbbActionPerformed
+    }
+        
+        
+    
+        
+    
+    
+        
+        
+        
+        
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
