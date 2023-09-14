@@ -72,6 +72,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
         });
 
         jbg.setText("Modificar");
+        jbg.setEnabled(false);
         jbg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbgActionPerformed(evt);
@@ -85,7 +86,7 @@ public class FormularioMateria extends javax.swing.JInternalFrame {
             }
         });
 
-        jbb.setText("Buscar");
+        jbb.setText("Nueva Busqueda");
         jbb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbbActionPerformed(evt);
@@ -177,15 +178,25 @@ this.dispose();
 
     private void jbnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnActionPerformed
         // VALIDACIONES
+        String idMat=jtcodigo.getText();
+        if  (!idMat.isEmpty()){
+            JOptionPane.showMessageDialog(this,"El codigo de materia se agregará automaticamente por el sistema");
+            jtcodigo.setText(null);
+         
+        }
+        
+        
         String nomMat=jtnom.getText();
         boolean estadoMat=true;
         int añoM=1;
         if (nomMat.isEmpty()){
            JOptionPane.showMessageDialog(this,"Debe ingresar un nombre de materia");
+           return;
         }else {
             String añoMat=jtaño.getText();
                 if (añoMat.isEmpty()){
                     JOptionPane.showMessageDialog(this,"Debe ingresar el año de la materia");
+                    return;
                 }else {
                     añoM=Integer.parseInt(añoMat);
                     if( jRestadoMat.isSelected()){
@@ -194,6 +205,8 @@ this.dispose();
                 }Materia nueva=new Materia(nomMat,añoM,estadoMat);
                 MateriaData mat=new MateriaData();
                 mat.guardarMateria(nueva); 
+                limpiarForm();
+                
                     
                     
                     
@@ -202,15 +215,37 @@ this.dispose();
     
     private void jbbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbbActionPerformed
         String codMat=jtcodigo.getText();
+        boolean estadobot=jtcodigo.isEnabled();
+        System.out.println(estadobot);
+        if (estadobot!=true){
+            jtcodigo.setEnabled(true);
+            limpiarForm();
+            jbg.setEnabled(false);
+            return;
+        }
+        
+        
+        
+        
+        
+        
+        int idMat=0;
         if (codMat.isEmpty()){
             JOptionPane.showMessageDialog(this,"Debe ingresar el codigo de la materia a buscar");
         }else{
-        int idMat= Integer.parseInt(codMat);
+        try {
+        idMat= Integer.parseInt(codMat);
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this,"Revise el codigo ingresado");
+            jtcodigo.setText(null);
+            return;
+        }
+        
         String nomMat="";
-        int añoMat=0;
+        //int añoMat=0;
         boolean estMat=true;
         MateriaData mat=new MateriaData();
-        
+        jtcodigo.setEnabled(false);
         String sql= "SELECT * FROM materia Where Idmateria= ?";
         PreparedStatement ps;
             try {
@@ -227,7 +262,8 @@ this.dispose();
                     }else {
                         jRestadoMat.setSelected(false);
                     }
-                    
+                jbg.setEnabled(true);
+                jtcodigo.setEnabled(false);
                 }
                 
                 
@@ -246,7 +282,17 @@ this.dispose();
 
     private void jbgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbgActionPerformed
             MateriaData mat=new MateriaData();
-            int idMat=Integer.parseInt(jtcodigo.getText());
+            int idMat=0;
+            try{
+            idMat=Integer.parseInt(jtcodigo.getText());}
+            catch (NumberFormatException r){
+                JOptionPane.showMessageDialog(this,"Error, codigo materia cambiado o erroneo");
+                jtcodigo.setText(null);
+                return;
+                        
+                
+            }
+            
             String nomMat=jtnom.getText();
             int añoMat=Integer.parseInt(jtaño.getText());
             boolean estMat;
@@ -258,6 +304,8 @@ this.dispose();
             
             Materia modMat=new Materia(idMat,nomMat,añoMat,estMat);
             mat.modificarMateria(modMat);
+            limpiarForm();
+            jbg.setEnabled(false);
         
     }//GEN-LAST:event_jbgActionPerformed
     
@@ -289,4 +337,16 @@ this.dispose();
     private javax.swing.JTextField jtcodigo;
     private javax.swing.JTextField jtnom;
     // End of variables declaration//GEN-END:variables
+
+public void limpiarForm(){
+//metodo para limpiar el formulario
+jtcodigo.setText("");
+jtnom.setText("");
+jtaño.setText("");
+
+
+
+
+    
+}
 }
