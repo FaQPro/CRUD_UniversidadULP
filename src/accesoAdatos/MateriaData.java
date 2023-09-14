@@ -43,18 +43,16 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null,"Error conectando a BD");
         }
         
-
-    
-        
     }
     
     public void modificarMateria(Materia materia){
-            String sql="UPDATE materia SET nombre= ?, año= ? WHERE idMateria= ?";    
+            String sql="UPDATE materia SET nombre= ?, año= ?,estado= ? WHERE idMateria= ?";    
         try {
             PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
             ps.setString(1, materia.getNombre());
             ps.setInt(2, materia.getAño());
-            ps.setInt(3,materia.getIdMateria());
+            ps.setBoolean(3,materia.isEstado());
+            ps.setInt(4,materia.getIdMateria());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null,"Materia modificada exitosamente");
             ps.close();
@@ -66,20 +64,7 @@ public class MateriaData {
         }
     }
     
-    public void bajaMateria(Materia materia)        {
-        String sql="UPDATE materia SET estado= false WHERE idMateria= ?";
-        try {
-            PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
-            ps.setInt(1,materia.getIdMateria());
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null,"Materia dada de Baja");
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al conectar");
-        }
-        
-        
-    }
+    
             
             
     }
