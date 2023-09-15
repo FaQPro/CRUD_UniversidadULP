@@ -135,10 +135,10 @@ return materias;
 return materias;
         }
        
-    public List<Alumno> obtenerAlumnosporMateria(int idMateria){
+    public List<Ealumno> obtenerAlumnosporMateria(int idMateria){
         
         
-            ArrayList<Alumno> aluMateria = new ArrayList<>();
+            ArrayList<Ealumno> aluMateria = new ArrayList<>();
             
             String sql ="SELECT a.idAlumno ,dni,nombre,apellido,fechaNacimiento,estado"
                     +"FROM inscripcion i ,alumno a WHERE i.idAlumno =a.idAlumno AND idMateria=? AND a.estado =1";
@@ -146,9 +146,11 @@ return materias;
             PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql) ;
             ps.setInt(1, idMateria);
             ResultSet rs=ps.executeQuery();
+            Ealumno alumno;
             while (rs.next()){
-                Ealumno alumno=new Ealumno();
+                alumno=new Ealumno();
                 alumno.setIdAlumno(rs.getInt("idAlumno"));
+                alumno.setDni(rs.getInt("dni"));
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
