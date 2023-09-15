@@ -204,7 +204,12 @@ this.dispose();
                     }else estadoMat=false;
                 }Materia nueva=new Materia(nomMat,añoM,estadoMat);
                 MateriaData mat=new MateriaData();
-                mat.guardarMateria(nueva); 
+                boolean encontrado=mat.buscarNombreMateria(nueva);
+                if (encontrado=true){
+                    JOptionPane.showMessageDialog(this,"Esa materia ya existe");
+                    return;
+                }else{
+                        mat.guardarMateria(nueva);} 
                 limpiarForm();
                 
                     

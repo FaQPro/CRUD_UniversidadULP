@@ -63,9 +63,31 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null,"Error al conectar");
         }
     }
-    
-    
+    public boolean buscarNombreMateria(Materia materia){
+        String sql="SELECT * FROM Materia WHERE nombre LIKE '?'";
+        try {
+            PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+            System.out.println(materia.getNombre());
+            ps.setString(1, materia.getNombre());
+            System.out.println(sql);
+            ResultSet rs=ps.executeQuery();
+            return true;}
             
-            
+            catch (SQLException ex){
+                    JOptionPane.showMessageDialog(null,"Error de conexion BD2");
+                    return false;
+                    }
+        }
+        
+        
+        
+        
+        
+        
+        
     }
+    
+            
+            
+    
 
