@@ -33,14 +33,14 @@ public class MateriaData {
             ps.setInt(2, materia.getAño());
             ps.setBoolean(3, materia.isEstado());
             ps.executeUpdate();
-            ResultSet rs=ps.getGeneratedKeys();
-            if (rs.next()){
-                materia.setIdMateria(rs.getInt(1));
+            ResultSet guardar=ps.getGeneratedKeys();
+            if (guardar.next()){
+                materia.setIdMateria(guardar.getInt(1));
                 JOptionPane.showMessageDialog(null,"Materia Guardada correctamente");
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error conectando a BD");
+            JOptionPane.showMessageDialog(null,"Error conectando a base de Datos en Guardar Materia ");
         }
         
     }
@@ -64,17 +64,29 @@ public class MateriaData {
         }
     }
     public boolean buscarNombreMateria(Materia materia){
-        String sql="SELECT * FROM Materia WHERE nombre LIKE '?'";
+        String sql="SELECT * FROM materia WHERE nombre=? AND año=?";
         try {
             PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
             System.out.println(materia.getNombre());
+            System.out.println(materia.getAño());
             ps.setString(1, materia.getNombre());
-            System.out.println(sql);
+            ps.setInt(2,materia.getAño());
             ResultSet rs=ps.executeQuery();
-            return true;}
+            if (rs.next()){
+                System.out.println("Regreso true");
+                rs.close();
+            return true;
+            } else { 
+                System.out.println("Regreso false");
+                rs.close();
+                return false;
+
+            }
+            
+        }
             
             catch (SQLException ex){
-                    JOptionPane.showMessageDialog(null,"Error de conexion BD2");
+                    JOptionPane.showMessageDialog(null,"Error de conexion en busqueda por nombre y año materia");
                     return false;
                     }
         }

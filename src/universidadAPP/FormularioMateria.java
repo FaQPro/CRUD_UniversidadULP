@@ -205,7 +205,8 @@ this.dispose();
                 }Materia nueva=new Materia(nomMat,añoM,estadoMat);
                 MateriaData mat=new MateriaData();
                 boolean encontrado=mat.buscarNombreMateria(nueva);
-                if (encontrado=true){
+                System.out.println("imprimo encontrado" + encontrado);
+                if (encontrado==true){
                     JOptionPane.showMessageDialog(this,"Esa materia ya existe");
                     return;
                 }else{
@@ -228,12 +229,7 @@ this.dispose();
             jbg.setEnabled(false);
             return;
         }
-        
-        
-        
-        
-        
-        
+                
         int idMat=0;
         if (codMat.isEmpty()){
             JOptionPane.showMessageDialog(this,"Debe ingresar el codigo de la materia a buscar");
@@ -270,8 +266,8 @@ this.dispose();
                 jbg.setEnabled(true);
                 jtcodigo.setEnabled(false);
                 }
-                
-                
+                rs.close();
+                ps.close();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this,"error");
             }
@@ -286,6 +282,20 @@ this.dispose();
     }//GEN-LAST:event_jbbActionPerformed
 
     private void jbgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbgActionPerformed
+            String nomMat=jtnom.getText();
+            String añoM=(jtaño.getText());
+            if(nomMat.isEmpty()){
+                JOptionPane.showMessageDialog(this,"El campo nombre no puede estar vacío");
+                jtnom.requestFocus();
+                return;
+                
+            }
+            if(añoM.isEmpty()){
+                JOptionPane.showMessageDialog(this,"El campo año no puede estar vacío");
+                jtaño.requestFocus();
+                return;
+            }
+        
             MateriaData mat=new MateriaData();
             int idMat=0;
             try{
@@ -297,16 +307,14 @@ this.dispose();
                         
                 
             }
-            
-            String nomMat=jtnom.getText();
-            int añoMat=Integer.parseInt(jtaño.getText());
+                      
             boolean estMat;
             if (jRestadoMat.isSelected()){
                 estMat=true;
                 
             }else{
                 estMat=false;}
-            
+            int añoMat=Integer.parseInt(añoM);
             Materia modMat=new Materia(idMat,nomMat,añoMat,estMat);
             mat.modificarMateria(modMat);
             limpiarForm();
@@ -348,6 +356,7 @@ public void limpiarForm(){
 jtcodigo.setText("");
 jtnom.setText("");
 jtaño.setText("");
+jRestadoMat.setSelected(false);
 
 
 
