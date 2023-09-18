@@ -25,7 +25,7 @@ public class Coneccion {
         Connection conexion=null;
         try{
             
-            Class.forName("org.mariadb.jdbc.Driver"); //"com.mysql.jdbc.Driver"
+            Class.forName("com.mysql.jdbc.Driver"); //"com.mysql.jdbc.Driver"org.mariadb.jdbc.Driver
             conexion = (Connection) DriverManager.getConnection(URL, USER, PASS);
             //JOptionPane.showMessageDialog(null, "Conexión Exitosa");
         

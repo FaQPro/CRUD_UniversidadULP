@@ -43,11 +43,36 @@ public class AlumnoData {
               alumno.setIdAlumno(rs.getInt(1));
               JOptionPane.showMessageDialog(null, "Alumno Agregado con éxito");
           }
-          
+         ps.close(); 
         } catch (SQLException ex) {
             System.err.println("error al acceder: ");
         }
     
     
     }
+
+    public void modificarAlumno(Ealumno alumno){
+    
+        String sql="UPDATE alumno SET dni=?, apellido=?, nombre=?, fechaNAcimeinto=?, "
+                + "WHERE idAlumno=?";
+        try {
+            PreparedStatement ps= (PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, alumno.getDni());
+            ps.setString(2, alumno.getApellido());
+            ps.setString(3, alumno.getNombre());
+            ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));
+            ps.setInt(5, alumno.getIdAlumno());
+            int okAlumno =ps.executeUpdate();
+            if (okAlumno==1){
+            JOptionPane.showMessageDialog(null, "OK \n Alumno Modificado");
+            }
+            
+            
+        } catch (Exception e) {
+            System.err.println("error al acceder: ");
+        }
+    
+    }
+
+
 }
