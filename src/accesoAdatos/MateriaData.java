@@ -90,14 +90,32 @@ public class MateriaData {
                     return false;
                     }
         }
-        
-        
-        
-        
-        
+    public Materia buscarIdMateria(int idmateria)    {
+        String sql="SELECT * FROM materia WHERE idMateria= ?";
+        try {
+            PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, idmateria);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Materia mat=new Materia(idmateria,rs.getString(2),rs.getInt(3),rs.getBoolean(4));
+                rs.close();
+                return mat;
+                
+            }
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error buscando Materia");
+        }
+        return null;
         
         
     }
+}
+        
+        
+        
+        
+        
+    
     
             
             
