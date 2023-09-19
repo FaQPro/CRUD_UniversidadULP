@@ -52,6 +52,7 @@ public class AlumnoData {
     
     }
 
+    
     public void modificarAlumno(Ealumno alumno){
     
         String sql="UPDATE alumno SET dni= ?, apellido= ?, nombre= ?, fechaNacimiento=? WHERE idAlumno = ?";
@@ -73,7 +74,8 @@ public class AlumnoData {
         }
     
     }
-
+    
+    //Eliminado Logico por estado a 0/false UPDATE 
     public void eliminarAlumno(int id){
         String sql="UPDATE alumno SET estado = 0 WHERE idAlumno = ?";
         
