@@ -249,7 +249,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         alumno.guardarAlumno(pablo);*/
         
        // MODIFICAR UN ALUMNO me da ERROR
-       /*Ealumno pedro=new Ealumno(56,"Luna","Juan Pedro", LocalDate.of(1980,04,25), true);
+       /*Ealumno pedro=new Ealumno(9,56,"Luna","Juan Pedro", LocalDate.of(1980,04,25), true);
        AlumnoData alumno=new AlumnoData();
        alumno.modificarAlumno(pedro);*/
         

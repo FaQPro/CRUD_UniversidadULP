@@ -53,7 +53,7 @@ public class AlumnoData {
 
     public void modificarAlumno(Ealumno alumno){
     
-        String sql="UPDATE alumno SET dni= ?, apellido= ?, nombre= ?, fechaNAcimeinto= ? WHERE idAlumno=?";
+        String sql="UPDATE alumno SET dni= ?, apellido= ?, nombre= ?, fechaNAcimeinto=? WHERE idAlumno=?";
         try {
             PreparedStatement ps= (PreparedStatement) con.prepareStatement(sql);
             ps.setInt(1, alumno.getDni());
@@ -63,7 +63,7 @@ public class AlumnoData {
             ps.setInt(5, alumno.getIdAlumno());
             int okAlumno =ps.executeUpdate();
             if (okAlumno==1){
-            JOptionPane.showMessageDialog(null, "OK \n Alumno Modificado");
+            JOptionPane.showMessageDialog(null, "OK Alumno Modificado");
             }
             
             
