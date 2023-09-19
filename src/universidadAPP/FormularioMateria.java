@@ -205,7 +205,7 @@ this.dispose();
                 }Materia nueva=new Materia(nomMat,añoM,estadoMat);
                 MateriaData mat=new MateriaData();
                 boolean encontrado=mat.buscarNombreMateria(nueva);
-                System.out.println("imprimo encontrado" + encontrado);
+                //System.out.println("imprimo encontrado" + encontrado);
                 if (encontrado==true){
                     JOptionPane.showMessageDialog(this,"Esa materia ya existe");
                     return;
@@ -222,7 +222,7 @@ this.dispose();
     private void jbbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbbActionPerformed
         String codMat=jtcodigo.getText();
         boolean estadobot=jtcodigo.isEnabled();
-        System.out.println(estadobot);
+        //System.out.println(estadobot);
         if (estadobot!=true){
             jtcodigo.setEnabled(true);
             limpiarForm();

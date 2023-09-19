@@ -67,17 +67,17 @@ public class MateriaData {
         String sql="SELECT * FROM materia WHERE nombre=? AND año=?";
         try {
             PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
-            System.out.println(materia.getNombre());
-            System.out.println(materia.getAño());
+            //System.out.println(materia.getNombre());
+            //System.out.println(materia.getAño());
             ps.setString(1, materia.getNombre());
             ps.setInt(2,materia.getAño());
             ResultSet rs=ps.executeQuery();
             if (rs.next()){
-                System.out.println("Regreso true");
+              //  System.out.println("Regreso true");
                 rs.close();
             return true;
             } else { 
-                System.out.println("Regreso false");
+               // System.out.println("Regreso false");
                 rs.close();
                 return false;
 
