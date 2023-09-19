@@ -243,15 +243,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         //llamo al metodo baja materia
        // mat.bajaMateria(logica);
         
-       // AGREGAR UN ALUMNO prueba
-        /*Ealumno juan=new Ealumno(56,"Luna","Pedro", LocalDate.of(1980,04,25), true);
+       // AGREGAR UN ALUMNO OK
+        /*Ealumno pablo=new Ealumno(37896523,"Diaz","Pablo", LocalDate.of(1980,04,25), true);
         AlumnoData alumno=new AlumnoData();
-        alumno.guardarAlumno(juan);*/
+        alumno.guardarAlumno(pablo);*/
         
-       // MODIFICAR UN ALUMNO prueba
-       Ealumno pedro=new Ealumno(9,56,"Luna","Juan Pedro", LocalDate.of(1980,04,25), true);
+       // MODIFICAR UN ALUMNO me da ERROR
+       /*Ealumno pedro=new Ealumno(56,"Luna","Juan Pedro", LocalDate.of(1980,04,25), true);
        AlumnoData alumno=new AlumnoData();
-       alumno.modificarAlumno(pedro);
+       alumno.modificarAlumno(pedro);*/
         
         
        
