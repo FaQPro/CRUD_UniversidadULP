@@ -73,5 +73,20 @@ public class AlumnoData {
     
     }
 
-
+    public void eliminarAlumno(int id){
+        String sql="UPDATE alumno SET estado = 0 WHERE idAlumno = ?";
+        
+        try {
+            PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int exito=ps.executeUpdate();
+            if (exito==1) {
+                
+                JOptionPane.showMessageDialog(null, "Alumno Eliminado");
+                
+            }
+        } catch (SQLException ex) {
+           System.err.println("error al acceder: "); 
+        }
+    }
 }

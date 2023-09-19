@@ -244,14 +244,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
        // mat.bajaMateria(logica);
         
        // AGREGAR UN ALUMNO OK
-        /*Ealumno pablo=new Ealumno(37896523,"Diaz","Pablo", LocalDate.of(1980,04,25), true);
+        /*Ealumno alfredo=new Ealumno(65985641,"Castillo","Alfredo", LocalDate.of(1989,06,13), true);
         AlumnoData alumno=new AlumnoData();
-        alumno.guardarAlumno(pablo);*/
+        alumno.guardarAlumno(alfredo);*/
         
        // MODIFICAR UN ALUMNO me da ERROR
        /*Ealumno pedro=new Ealumno(9,56,"Luna","Juan Pedro", LocalDate.of(1980,04,25), true);
        AlumnoData alumno=new AlumnoData();
        alumno.modificarAlumno(pedro);*/
+       
+       // ELIMINAR ALUMNO ok
+        /*Ealumno alfredo=new Ealumno(11,65985641,"Castillo","Alfredo", LocalDate.of(1989,06,13), true);
+        AlumnoData alumno=new AlumnoData();
+        alumno.eliminarAlumno(11);*/
         
         
        
