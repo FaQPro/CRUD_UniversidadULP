@@ -5,7 +5,10 @@
  */
 package universidadAPP;
 
+import accesoAdatos.AlumnoData;
 import accesoAdatos.MateriaData;
+import java.time.LocalDate;
+import universidadAPP.Entidades.Ealumno;
 import universidadAPP.Entidades.Materia;
 
 /**
@@ -240,7 +243,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         //llamo al metodo baja materia
        // mat.bajaMateria(logica);
         
+       // AGREGAR UN ALUMNO OK
+        /*Ealumno alfredo=new Ealumno(65985641,"Castillo","Alfredo", LocalDate.of(1989,06,13), true);
+        AlumnoData alumno=new AlumnoData();
+        alumno.guardarAlumno(alfredo);*/
         
+       // MODIFICAR UN ALUMNO OK
+       /*Ealumno pedro=new Ealumno(9,56,"Luna","Juan Pedro", LocalDate.of(1980,04,25), true);
+       AlumnoData alumno=new AlumnoData();
+       alumno.modificarAlumno(pedro);*/
+       
+       // ELIMINAR ALUMNO OK
+        /*Ealumno alfredo=new Ealumno(11,65985641,"Castillo","Alfredo", LocalDate.of(1989,06,13), true);
+        AlumnoData alumno=new AlumnoData();
+        alumno.eliminarAlumno(11);*/
         
         
        

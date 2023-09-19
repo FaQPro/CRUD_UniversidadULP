@@ -24,10 +24,10 @@ public class Coneccion {
     public static Connection getConnection(){
         Connection conexion=null;
         try{
-            
-            Class.forName("org.mariadb.jdbc.Driver"); //"com.mysql.jdbc.Driver"
+            // Cambie el driver mariadb por el mysql JDBC Driver que lo instalan en la carpeta por defecto
+            Class.forName("com.mysql.jdbc.Driver"); //"org.mariadb.jdbc.Driver"
             conexion = (Connection) DriverManager.getConnection(URL, USER, PASS);
-            //JOptionPane.showMessageDialog(null, "Conexión Exitosa");
+            JOptionPane.showMessageDialog(null, "Conexión Exitosa");
         
         }catch(Exception ex){
             System.err.println("Error: "+ex);

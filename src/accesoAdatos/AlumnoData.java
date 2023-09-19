@@ -4,6 +4,7 @@ package accesoAdatos;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -43,11 +44,52 @@ public class AlumnoData {
               alumno.setIdAlumno(rs.getInt(1));
               JOptionPane.showMessageDialog(null, "Alumno Agregado con éxito");
           }
-          
+         ps.close(); 
         } catch (SQLException ex) {
             System.err.println("error al acceder: ");
         }
     
     
+    }
+
+    
+    public void modificarAlumno(Ealumno alumno){
+    
+        String sql="UPDATE alumno SET dni= ?, apellido= ?, nombre= ?, fechaNacimiento=? WHERE idAlumno = ?";
+        try {
+            PreparedStatement ps= (PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, alumno.getDni());
+            ps.setString(2, alumno.getApellido());
+            ps.setString(3, alumno.getNombre());
+            ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));
+            ps.setInt(5, alumno.getIdAlumno());
+            int okAlumno =ps.executeUpdate();
+            if (okAlumno==1){
+            JOptionPane.showMessageDialog(null, "OK \n Alumno Modificado");
+            }
+            
+            
+        } catch (HeadlessException | SQLException e) {
+            System.err.println("error al acceder: "+e);
+        }
+    
+    }
+    
+    //Eliminado Logico por estado a 0/false UPDATE 
+    public void eliminarAlumno(int id){
+        String sql="UPDATE alumno SET estado = 0 WHERE idAlumno = ?";
+        
+        try {
+            PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int exito=ps.executeUpdate();
+            if (exito==1) {
+                
+                JOptionPane.showMessageDialog(null, "Alumno Eliminado");
+                
+            }
+        } catch (SQLException ex) {
+           System.err.println("error al acceder: "); 
+        }
     }
 }

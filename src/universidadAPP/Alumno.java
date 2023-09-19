@@ -61,7 +61,6 @@ public class Alumno extends javax.swing.JFrame {
         botonBuscar = new javax.swing.JButton();
         jTidAlumno = new javax.swing.JTextField();
         botonSalir = new javax.swing.JButton();
-        jDfechaNacimiento = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,10 +146,7 @@ public class Alumno extends javax.swing.JFrame {
                                     .addComponent(jLNombre)
                                     .addGap(18, 18, 18)
                                     .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLfechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jDfechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLfechaNacimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(botonRegistrar)
                                 .addGap(18, 18, 18)
@@ -176,10 +172,8 @@ public class Alumno extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLNombre)
                     .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLfechaNacimiento)
-                    .addComponent(jDfechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(jLfechaNacimiento)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLestado)
@@ -224,7 +218,7 @@ public class Alumno extends javax.swing.JFrame {
                 }
             ps.setString(2, jTapellido.getText());
             ps.setString(3, jTnombre.getText());
-            ps.setDate(4, (Date) jDfechaNacimiento.getDate());
+            //ps.setDate(4, (Date) jDfechaNacimiento.getDate());
             
           
           
@@ -275,7 +269,6 @@ public class Alumno extends javax.swing.JFrame {
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton botonSalir;
     private javax.swing.JComboBox<String> jCestado;
-    private com.toedter.calendar.JDateChooser jDfechaNacimiento;
     private javax.swing.JLabel jLNombre;
     private javax.swing.JLabel jLapellido;
     private javax.swing.JLabel jLdni;
