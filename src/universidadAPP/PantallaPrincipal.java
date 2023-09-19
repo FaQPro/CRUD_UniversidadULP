@@ -248,12 +248,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         AlumnoData alumno=new AlumnoData();
         alumno.guardarAlumno(alfredo);*/
         
-       // MODIFICAR UN ALUMNO me da ERROR
+       // MODIFICAR UN ALUMNO OK
        /*Ealumno pedro=new Ealumno(9,56,"Luna","Juan Pedro", LocalDate.of(1980,04,25), true);
        AlumnoData alumno=new AlumnoData();
        alumno.modificarAlumno(pedro);*/
        
-       // ELIMINAR ALUMNO ok
+       // ELIMINAR ALUMNO OK
         /*Ealumno alfredo=new Ealumno(11,65985641,"Castillo","Alfredo", LocalDate.of(1989,06,13), true);
         AlumnoData alumno=new AlumnoData();
         alumno.eliminarAlumno(11);*/
