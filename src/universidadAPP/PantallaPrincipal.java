@@ -257,6 +257,17 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         /*Ealumno alfredo=new Ealumno(11,65985641,"Castillo","Alfredo", LocalDate.of(1989,06,13), true);
         AlumnoData alumno=new AlumnoData();
         alumno.eliminarAlumno(11);*/
+       
+      // BUSCAR ALUMNO 
+       /*AlumnoData alumno=new AlumnoData();
+       Ealumno alumnoEncontrado=alumno.buscarAlumno(55);
+        if (alumnoEncontrado!=null) {
+            System.out.println("dni "+alumnoEncontrado.getDni());
+            System.out.println("apellido "+alumnoEncontrado.getApellido());
+            System.out.println("nombre "+alumnoEncontrado.getNombre());
+        }*/
+       
+       
         
         
        
