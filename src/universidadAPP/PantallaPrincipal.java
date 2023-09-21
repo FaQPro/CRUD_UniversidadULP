@@ -274,6 +274,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             System.out.println("apellido "+alumnoEncontrado.getApellido());
             System.out.println("nombre "+alumnoEncontrado.getNombre());
         }*/
+      // LISTAR ALUMNOS
+        /*AlumnoData alumnos=new AlumnoData();
+        for(Ealumno alumno:alumnos.ListarAlumnos()){
+            System.out.println(alumno.getDni());
+            System.out.println(alumno.getApellido());
+            System.out.println(alumno.getNombre());
+        
+        }*/
+        
         
        
         
