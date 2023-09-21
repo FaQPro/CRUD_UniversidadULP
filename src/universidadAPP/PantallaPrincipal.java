@@ -266,9 +266,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             System.out.println("apellido "+alumnoEncontrado.getApellido());
             System.out.println("nombre "+alumnoEncontrado.getNombre());
         }*/
-       
-       
-        
+      // BUSCAR ALUMNO por DNI
+        /*AlumnoData alumno=new AlumnoData();
+        Ealumno alumnoEncontrado=alumno.buscarAlumnoPorDni(56);
+          if (alumnoEncontrado!=null) {
+            System.out.println("dni "+alumnoEncontrado.getDni());
+            System.out.println("apellido "+alumnoEncontrado.getApellido());
+            System.out.println("nombre "+alumnoEncontrado.getNombre());
+        }*/
         
        
         

@@ -121,5 +121,31 @@ public class AlumnoData {
     return alumno;
     }
 
-
+    public Ealumno buscarAlumnoPorDni (int dni){
+    String sql="SELECT idAlumno,dni, apellido, nombre, fechaNacimiento FROM alumno WHERE dni =? AND estado =1";
+    Ealumno alumno=null;    
+        try {
+            PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ResultSet rs=ps.executeQuery();
+            if (rs.next()) {
+                alumno=new Ealumno();
+                alumno.setIdAlumno(rs.getInt("idAlumno"));
+                alumno.setDni(rs.getInt("dni"));
+                alumno.setApellido(rs.getString("apellido"));
+                alumno.setNombre(rs.getString("nombre"));
+                alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                alumno.setEstado(true);
+                
+                
+            }else {
+            JOptionPane.showMessageDialog(null, "No existe ese alumno ");
+            }
+            ps.close();
+                    
+                    } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumnos "+ex);
+        }
+    return alumno;
+    }
 }
