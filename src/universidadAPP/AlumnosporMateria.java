@@ -5,6 +5,16 @@
  */
 package universidadAPP;
 
+import accesoAdatos.Coneccion;
+import accesoAdatos.InscripcionData;
+import accesoAdatos.MateriaData;
+import java.util.ArrayList;
+import static java.util.Collections.list;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import universidadAPP.Entidades.Ealumno;
+
+
 /**
  *
  * @author perey
@@ -14,8 +24,14 @@ public class AlumnosporMateria extends javax.swing.JInternalFrame {
     /**
      * Creates new form AlumnosporMateria
      */
+    private DefaultTableModel formatoTabla = new DefaultTableModel();
+    
+    
     public AlumnosporMateria() {
         initComponents();
+        limpioForm();
+        cargoListaMat();
+        
     }
 
     /**
@@ -31,16 +47,22 @@ public class AlumnosporMateria extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jcbMateria = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtablaMateria = new javax.swing.JTable();
         jbsalir = new javax.swing.JButton();
+        jbBuscar = new javax.swing.JButton();
 
         jLabel1.setText("Listado de Alumnos por Materia");
 
-        jLabel2.setText("Selecciones una materia :");
+        jLabel2.setText("Seleccione una materia :");
 
         jcbMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMateriaActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtablaMateria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -48,12 +70,19 @@ public class AlumnosporMateria extends javax.swing.JInternalFrame {
                 "ID", "DNI", "Apellido", "Nombre"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtablaMateria);
 
         jbsalir.setText("Salir");
         jbsalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbsalirActionPerformed(evt);
+            }
+        });
+
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
             }
         });
 
@@ -70,28 +99,31 @@ public class AlumnosporMateria extends javax.swing.JInternalFrame {
                         .addGap(19, 19, 19)
                         .addComponent(jLabel2)
                         .addGap(31, 31, 31)
-                        .addComponent(jcbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(jcbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbBuscar)))
+                .addContainerGap(88, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jbsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(11, Short.MAX_VALUE)
+                    .addContainerGap(100, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(12, Short.MAX_VALUE)))
+                    .addContainerGap(100, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(37, 37, 37)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jcbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
+                    .addComponent(jcbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
                 .addComponent(jbsalir)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,13 +141,78 @@ public class AlumnosporMateria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbsalirActionPerformed
 
+    private void jcbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMateriaActionPerformed
+    //1ro, obtengo el idMateria de la materia seleccionada
+    
+    
+        
+        
+        
+    }//GEN-LAST:event_jcbMateriaActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        MateriaData mat=new MateriaData();
+    String materiaCombo;
+        materiaCombo = (String) jcbMateria.getSelectedItem();
+        System.out.println("Materia Combo "+ materiaCombo);    
+    int idMat=mat.devuelveIdMateria(materiaCombo);
+    InscripcionData insc = new InscripcionData();
+    ArrayList<Ealumno> aluMat = new ArrayList<>();
+    aluMat=(ArrayList<Ealumno>) insc.obtenerAlumnosporMateria(idMat);
+    for (Ealumno datos : aluMat){
+        formatoTabla.addRow(new Object[]{datos.getIdAlumno(),datos.getDni(),datos.getApellido(),datos.getNombre()});
+         
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbsalir;
     private javax.swing.JComboBox<String> jcbMateria;
+    private javax.swing.JTable jtablaMateria;
     // End of variables declaration//GEN-END:variables
+
+public void cargoListaMat(){
+MateriaData mat=new MateriaData();
+ArrayList<String> listadoMateriasCombo=new ArrayList<>();
+listadoMateriasCombo=mat.MateriasTodas();
+for (String nombreMat : listadoMateriasCombo){
+    jcbMateria.addItem(nombreMat);
+    
 }
+
+}
+public void limpioForm(){
+    jcbMateria.removeAllItems();
+    jtablaMateria.removeAll();
+    formatearTabla();
+    
+    
+}
+private void formatearTabla(){
+    formatoTabla.addColumn("idAlumno");
+    formatoTabla.addColumn("Dni");
+    formatoTabla.addColumn("Apellido");
+    formatoTabla.addColumn("Nombre");
+    jtablaMateria.setModel(formatoTabla);
+                    
+}
+}
+
+

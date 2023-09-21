@@ -9,6 +9,7 @@ import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -109,7 +110,50 @@ public class MateriaData {
         
         
     }
-}
+    public ArrayList<String> MateriasTodas(){
+    ArrayList<String> listaMat=new ArrayList<>();
+    String sql="SELECT nombre FROM materia ORDER BY nombre";
+    try {
+        PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+        ResultSet rs=ps.executeQuery();
+        while (rs.next()){
+            listaMat.add(rs.getString("nombre"));
+        }
+        return listaMat;
+    } catch (SQLException ex){
+        JOptionPane.showMessageDialog(null,"Error intentando traer los nombres de las materias");
+    }
+return null;    
+            
+        }
+    
+     public int devuelveIdMateria(String nombreMat){
+        String sql="SELECT idMateria FROM materia WHERE nombre=? ";
+         
+        try {
+            PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+            ps.setString(1, nombreMat );
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+             return rs.getInt(1);
+               
+            }
+        } catch (SQLException ex){
+                    JOptionPane.showMessageDialog(null,"Error buscando el nombre de la materia");
+                    return 0;
+                    }
+        return 0;
+        }
+    
+        
+    }
+        
+        
+        
+        
+        
+    
+
         
         
         

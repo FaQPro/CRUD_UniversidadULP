@@ -140,8 +140,12 @@ return materias;
         
             ArrayList<Ealumno> aluMateria = new ArrayList<>();
             
-            String sql ="SELECT a.idAlumno ,dni,nombre,apellido,fechaNacimiento,estado"
-                    +"FROM inscripcion i ,alumno a WHERE i.idAlumno =a.idAlumno AND idMateria=? AND a.estado =1";
+           // String sql ="SELECT a.idAlumno, dni , nombre , apellido , fechaNacimiento , estado"
+             //       + "FROM inscripcion i ,alumno a WHERE i.idAlumno = a.idAlumno AND idMateria=? AND a.estado =1";
+             
+          String sql = "SELECT alumno.idAlumno, alumno.dni, alumno.nombre, alumno.apellido, alumno.fechaNacimiento, alumno.estado FROM alumno JOIN inscripcion ON (alumno.idAlumno=inscripcion.idAlumno) WHERE inscripcion.idMateria=?";
+   
+             
           try {
             PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql) ;
             ps.setInt(1, idMateria);
