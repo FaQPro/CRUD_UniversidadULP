@@ -152,6 +152,11 @@ public class AlumnosporMateria extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
+        
+        while (formatoTabla.getRowCount()>0){
+        formatoTabla.removeRow(0);}
+        System.out.println("Filas borradas");
+        
         MateriaData mat=new MateriaData();
     String materiaCombo;
         materiaCombo = (String) jcbMateria.getSelectedItem();
@@ -211,8 +216,11 @@ private void formatearTabla(){
     formatoTabla.addColumn("Apellido");
     formatoTabla.addColumn("Nombre");
     jtablaMateria.setModel(formatoTabla);
+    
+        
+    }
                     
 }
-}
+
 
 
