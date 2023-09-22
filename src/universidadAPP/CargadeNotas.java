@@ -5,6 +5,11 @@
  */
 package universidadAPP;
 
+import accesoAdatos.AlumnoData;
+import accesoAdatos.MateriaData;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import accesoAdatos.InscripcionData;
 /**
  *
  * @author perey
@@ -14,8 +19,11 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
     /**
      * Creates new form CargadeNotas
      */
+      private DefaultTableModel formatoTabla = new DefaultTableModel();
     public CargadeNotas() {
         initComponents();
+         limpioForm();
+        cargoListaAlu();
     }
 
     /**
@@ -38,8 +46,6 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
         jLabel1.setText("Carga de Notas");
 
         jLabel2.setText("Selecciones un alumno :");
-
-        jcbSalumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -119,6 +125,35 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbguardar;
     private javax.swing.JButton jbsalir;
-    private javax.swing.JComboBox<String> jcbSalumno;
+    private javax.swing.JComboBox<ArrayList > jcbSalumno;
     // End of variables declaration//GEN-END:variables
+
+
+    public void cargoListaAlu(){
+
+
+
+        InscripcionData alu=new InscripcionData();
+ArrayList<String> listadoAlumnoCombo=new ArrayList<>();
+ MateriaData mat=new MateriaData();
+int idMat=mat.devuelveIdMateria(mat.MateriasTodas().toString());
+//*istadoAlumnoCombo*/=(alu.obtenerAlumnosporMateria(idMat).toString());
+for (String nombreMat : listadoAlumnoCombo){
+ // jcbSalumno.addItem();
+}
+    }
+    
+private void formatoTabla(){
+    formatoTabla.addColumn("Codigo");
+    formatoTabla.addColumn("Nombre");
+    formatoTabla.addColumn("Nota");
+   
+    jTable1.setModel(formatoTabla);
+                    
+}
+    public void limpioForm(){
+    jcbSalumno.removeAllItems();
+    jTable1.removeAll();
+    formatoTabla();
+}
 }
