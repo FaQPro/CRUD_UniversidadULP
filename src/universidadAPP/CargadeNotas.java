@@ -5,11 +5,19 @@
  */
 package universidadAPP;
 
+import accesoAdatos.Coneccion;        
 import accesoAdatos.AlumnoData;
 import accesoAdatos.MateriaData;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import accesoAdatos.InscripcionData;
+import com.mysql.jdbc.PreparedStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import universidadAPP.Entidades.Ealumno;
 /**
  *
  * @author perey
@@ -19,6 +27,7 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
     /**
      * Creates new form CargadeNotas
      */
+     private Connection con = null;
       private DefaultTableModel formatoTabla = new DefaultTableModel();
     public CargadeNotas() {
         initComponents();
@@ -42,10 +51,22 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jbguardar = new javax.swing.JButton();
         jbsalir = new javax.swing.JButton();
+        ApeNom = new javax.swing.JLabel();
 
         jLabel1.setText("Carga de Notas");
 
         jLabel2.setText("Selecciones un alumno :");
+
+        jcbSalumno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jcbSalumnoMouseClicked(evt);
+            }
+        });
+        jcbSalumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSalumnoActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -71,19 +92,21 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(132, 132, 132)
+                                .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jcbSalumno, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                                .addComponent(jcbSalumno, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ApeNom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(28, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addComponent(jbguardar)
@@ -99,10 +122,11 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jcbSalumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jcbSalumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ApeNom, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbguardar)
                     .addComponent(jbsalir))
@@ -117,29 +141,107 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbsalirActionPerformed
 
+    private void jcbSalumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSalumnoActionPerformed
+        // TODO add your handling code here:
+        
+           List<String> materias = new ArrayList<String>();
+       String aux=jcbSalumno.getSelectedItem().toString() ;
+       String auxid =aux.substring(0,1);
+        System.out.println(""+auxid);
+       for (int i=1 ; i<=3 ; i++){
+           if(aux.substring(i,1).equals("-")) {
+               
+           }else {
+               auxid=auxid.concat(aux.substring(i, 1));
+           }
+           
+       }
+       String sql ="SELECT materia.idMateria, materia.nombre, inscripcion.nota from materia "
+                  + "JOIN inscripcion ON (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
+             try {
+                PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+              ps.setInt(1, Integer.parseInt(auxid));
+                ResultSet rs = ps.executeQuery();
+                 String materia;
+            while (rs.next()) {
+               // materia = new Materia();
+                formatoTabla.addRow(new Object[]{rs.getInt("idMateria"),rs.getString("nombre"),rs.getInt("nota")});
+               
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al obtener Inscripciones."+ex.getMessage());
+
+}
+    }//GEN-LAST:event_jcbSalumnoActionPerformed
+
+    private void jcbSalumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbSalumnoMouseClicked
+//        List<String> materias = new ArrayList<String>();
+//       String aux=jcbSalumno.getSelectedItem().toString() ;
+//       String auxid =aux.substring(0,1);
+//        System.out.println(""+auxid);
+//       for (int i=1 ; i<=3 ; i++){
+//           
+//           
+//       }
+           
+       
+//        auxid=jcbSalumno.getSelectedItem();
+//        System.out.println("id"auxid);
+          /* String sql = "SELECT inscripcion.idMateria, nombre, año FROM inscripcion,"
+                    + " materia WHERE inscripcion.idMateria = materia.idMaterialn"
+                    + "AND inscripcion.idAlumno = ?;";*/
+          String sql ="SELECT materia.idMateria, materia.nombre, inscripcion.nota from materia "
+                  + "JOIN inscripcion ON (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
+//             try {
+//                PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+//              ps.setInt(1, auxid.hashCode());
+//                ResultSet rs = ps.executeQuery();
+//                 String materia;
+//            while (rs.next()) {
+//               // materia = new Materia();
+//                formatoTabla.addRow(new Object[]{rs.getInt("idMateria"),rs.getString("nombre"),rs.getInt("nota")});
+//               
+//            }
+//
+//            ps.close();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null,"Error al obtener Inscripciones."+ex.getMessage());
+//
+//}
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbSalumnoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ApeNom;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbguardar;
     private javax.swing.JButton jbsalir;
-    private javax.swing.JComboBox<ArrayList > jcbSalumno;
+    private javax.swing.JComboBox<String> jcbSalumno;
     // End of variables declaration//GEN-END:variables
 
 
     public void cargoListaAlu(){
 
+      int  auxid;
 
-
-        InscripcionData alu=new InscripcionData();
-ArrayList<String> listadoAlumnoCombo=new ArrayList<>();
+        AlumnoData alu=new AlumnoData();
+        
+ArrayList<Ealumno> listadoAlumnoCombo=new ArrayList<>();
  MateriaData mat=new MateriaData();
-int idMat=mat.devuelveIdMateria(mat.MateriasTodas().toString());
-//*istadoAlumnoCombo*/=(alu.obtenerAlumnosporMateria(idMat).toString());
-for (String nombreMat : listadoAlumnoCombo){
- // jcbSalumno.addItem();
+//int idMat=mat.devuelveIdMateria(mat.MateriasTodas().toString());
+listadoAlumnoCombo=(ArrayList<Ealumno>) alu.ListarAlumnosidape();
+        for (Ealumno alux : listadoAlumnoCombo){
+    String item = alux.getIdAlumno()+" -"+alux.getApellido();
+             
+    jcbSalumno.addItem(item);
 }
     }
     
@@ -153,7 +255,7 @@ private void formatoTabla(){
 }
     public void limpioForm(){
     jcbSalumno.removeAllItems();
-    jTable1.removeAll();
+  formatoTabla.setNumRows(0);
     formatoTabla();
 }
 }

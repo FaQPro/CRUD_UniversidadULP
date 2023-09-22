@@ -32,7 +32,10 @@ public class Ealumno {
         this.fechaNacimiento = fechaNacimiento;
         this.estado = estado;
     }
-
+    public Ealumno(int idAlumno,String apellido){
+        this.idAlumno = idAlumno;
+         this.apellido = apellido;
+    }
     public int getIdAlumno() {
         return idAlumno;
     }

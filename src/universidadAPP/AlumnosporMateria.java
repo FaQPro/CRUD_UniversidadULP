@@ -155,12 +155,12 @@ public class AlumnosporMateria extends javax.swing.JInternalFrame {
         
         while (formatoTabla.getRowCount()>0){
         formatoTabla.removeRow(0);}
-        System.out.println("Filas borradas");
+     
         
         MateriaData mat=new MateriaData();
     String materiaCombo;
         materiaCombo = (String) jcbMateria.getSelectedItem();
-        System.out.println("Materia Combo "+ materiaCombo);    
+        
     int idMat=mat.devuelveIdMateria(materiaCombo);
     InscripcionData insc = new InscripcionData();
     ArrayList<Ealumno> aluMat = new ArrayList<>();

@@ -175,4 +175,26 @@ public class AlumnoData {
         }
     return alumnos;
     }
+      public List<Ealumno> ListarAlumnosidape (){
+    String sql="SELECT idAlumno, apellido FROM alumno WHERE estado =1";
+    ArrayList<Ealumno> alumnos=new ArrayList<>();    
+        try {
+            PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {
+                Ealumno alumno=new Ealumno();
+                alumno.setIdAlumno(rs.getInt("idAlumno"));
+                alumno.setApellido(rs.getString("apellido"));
+               
+                
+                
+                alumnos.add(alumno);
+            }
+            ps.close();
+                    
+                    } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumnos "+ex);
+        }
+    return alumnos;
+    }
 }
