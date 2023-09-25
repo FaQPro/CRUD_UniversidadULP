@@ -33,6 +33,8 @@ public class Materia {
         this.estado = estado;
     }
 
+
+
     public int getIdMateria() {
         return idMateria;
     }

@@ -5,19 +5,48 @@
  */
 package universidadAPP;
 
+import accesoAdatos.AlumnoData;
+import accesoAdatos.InscripcionData;
+import accesoAdatos.MateriaData;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import universidadAPP.Entidades.Ealumno;
+import universidadAPP.Entidades.Inscripcion;
+import universidadAPP.Entidades.Materia;
+
 /**
  *
  * @author perey
  */
 public class FormularioInscripciones extends javax.swing.JInternalFrame {
 
+    
+    private ArrayList<Materia>listaM;
+    private ArrayList<Ealumno>listaA;
+    
+    private InscripcionData inscData;
+    private MateriaData mData;
+    private AlumnoData aData;
+    
+    private DefaultTableModel modelo;
+    
     /**
      * Creates new form FormularioInscripciones
      */
     public FormularioInscripciones() {
         initComponents();
+    
+        aData =new AlumnoData();
+        listaA= (ArrayList<Ealumno>)aData.ListarAlumnos();
+        modelo= new DefaultTableModel();
+        inscData = new InscripcionData();
+        mData = new MateriaData ();
+        cargarAlumnos();
+        armarCabecera();
+        
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +63,7 @@ public class FormularioInscripciones extends javax.swing.JInternalFrame {
         jrbmnoincript = new javax.swing.JRadioButton();
         jrbminscriptas = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtFincripcion = new javax.swing.JTable();
         jbinscribir = new javax.swing.JButton();
         jbanular = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
@@ -45,33 +74,25 @@ public class FormularioInscripciones extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Listado de Materias");
 
-        jcbAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jrbmnoincript.setText("Materias no inscriptas");
 
         jrbminscriptas.setText("Materias inscriptas");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtFincripcion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nombre", "Año"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
-        jScrollPane1.setViewportView(jTable1);
+        ));
+        jScrollPane1.setViewportView(jtFincripcion);
 
         jbinscribir.setText("Inscribir");
+        jbinscribir.setEnabled(false);
 
         jbanular.setText("Anular inscripcion");
+        jbanular.setEnabled(false);
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -153,12 +174,54 @@ public class FormularioInscripciones extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbSalir;
     private javax.swing.JButton jbanular;
     private javax.swing.JButton jbinscribir;
     private javax.swing.JComboBox<String> jcbAlumno;
     private javax.swing.JRadioButton jrbminscriptas;
     private javax.swing.JRadioButton jrbmnoincript;
+    private javax.swing.JTable jtFincripcion;
     // End of variables declaration//GEN-END:variables
+private void cargarAlumnos(){
+for(Ealumno item:listaA){
+    String aux = item.getDni()+"-"+item.getApellido()+"-"+item.getNombre();
+    jcbAlumno.addItem(aux);
+}
+}
+private void armarCabecera(){
+    ArrayList<Object>filaCabecera = new ArrayList<>();
+    filaCabecera.add("ID");
+     filaCabecera.add("Nombre");
+      filaCabecera.add("Año");
+      for (Object i:filaCabecera){
+          modelo.addColumn(i);
+      }
+      jtFincripcion.setModel(modelo);
+}
+      private void borrarfilasT(){
+          int ind= modelo.getRowCount()-1;
+          for (int x=ind ;x>=0;x--){
+              modelo.removeRow(x);
+              
+          }
+          
+      }  
+      private void cargadDatosNInscriptos(){
+          //borrarfilasT();
+          Ealumno eleg=(Ealumno)jcbAlumno.getSelectedItem();
+          listaM =(ArrayList)inscData.obtenerMateriasNocursadas(eleg.getIdAlumno());
+          for(Materia m:listaM){
+              modelo.addRow(new Object[]{m.getIdMateria(),m.getNombre(),m.getAño()});
+              
+          }
+          
+      }
+      private void cargadDatosInsciptos(){
+          //borrarfilasT
+          Ealumno eleg=(Ealumno)jcbAlumno.getSelectedItem();
+          ArrayList<Materia> list=(ArrayList)inscData.obtenerMateriasCursadas(eleg.getIdAlumno());
+           for(Materia m:list){
+              modelo.addRow(new Object[]{m.getIdMateria(),m.getNombre(),m.getAño()});
+      }
+}
 }

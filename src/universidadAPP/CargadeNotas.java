@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import universidadAPP.Entidades.Ealumno;
+import universidadAPP.Entidades.Inscripcion;
+import universidadAPP.Entidades.Materia;
 /**
  *
  * @author perey
@@ -27,6 +29,7 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
     /**
      * Creates new form CargadeNotas
      */
+    InscripcionData Insc= new InscripcionData();
      private Connection con = null;
       private DefaultTableModel formatoTabla = new DefaultTableModel();
     public CargadeNotas() {
@@ -143,41 +146,20 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
 
     private void jcbSalumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSalumnoActionPerformed
         // TODO add your handling code here:
+//        Ealumno aux=(Ealumno)jcbSalumno.getSelectedItem();
+//        
+//        ArrayList<Materia>lista=(ArrayList)Insc.obtenerMateriasCursadas(aux.getIdAlumno());
+//        for(Materia m:lista){
+//             formatoTabla.addRow(new Object[]{m.getIdMateria(),m.getNombre(),m.getAño()});
+//        }
+//       
+//   
         
-           List<String> materias = new ArrayList<String>();
-       String aux=jcbSalumno.getSelectedItem().toString() ;
-       String auxid =aux.substring(0,1);
-        System.out.println(""+auxid);
-       for (int i=1 ; i<=3 ; i++){
-           if(aux.substring(i,1).equals("-")) {
-               
-           }else {
-               auxid=auxid.concat(aux.substring(i, 1));
-           }
-           
-       }
-       String sql ="SELECT materia.idMateria, materia.nombre, inscripcion.nota from materia "
-                  + "JOIN inscripcion ON (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
-             try {
-                PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
-              ps.setInt(1, Integer.parseInt(auxid));
-                ResultSet rs = ps.executeQuery();
-                 String materia;
-            while (rs.next()) {
-               // materia = new Materia();
-                formatoTabla.addRow(new Object[]{rs.getInt("idMateria"),rs.getString("nombre"),rs.getInt("nota")});
-               
-            }
-
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al obtener Inscripciones."+ex.getMessage());
-
-}
     }//GEN-LAST:event_jcbSalumnoActionPerformed
-
+    
     private void jcbSalumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbSalumnoMouseClicked
-//        List<String> materias = new ArrayList<String>();
+          
+//List<String> materias = new ArrayList<String>();
 //       String aux=jcbSalumno.getSelectedItem().toString() ;
 //       String auxid =aux.substring(0,1);
 //        System.out.println(""+auxid);
@@ -192,8 +174,8 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
           /* String sql = "SELECT inscripcion.idMateria, nombre, año FROM inscripcion,"
                     + " materia WHERE inscripcion.idMateria = materia.idMaterialn"
                     + "AND inscripcion.idAlumno = ?;";*/
-          String sql ="SELECT materia.idMateria, materia.nombre, inscripcion.nota from materia "
-                  + "JOIN inscripcion ON (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
+//          String sql ="SELECT materia.idMateria, materia.nombre, inscripcion.nota from materia "
+//                  + "JOIN inscripcion ON (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
 //             try {
 //                PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
 //              ps.setInt(1, auxid.hashCode());
@@ -239,7 +221,7 @@ ArrayList<Ealumno> listadoAlumnoCombo=new ArrayList<>();
 //int idMat=mat.devuelveIdMateria(mat.MateriasTodas().toString());
 listadoAlumnoCombo=(ArrayList<Ealumno>) alu.ListarAlumnosidape();
         for (Ealumno alux : listadoAlumnoCombo){
-    String item = alux.getIdAlumno()+" -"+alux.getApellido();
+    String item = alux.getIdAlumno()+"  -"+alux.getApellido();
              
     jcbSalumno.addItem(item);
 }
@@ -258,4 +240,14 @@ private void formatoTabla(){
   formatoTabla.setNumRows(0);
     formatoTabla();
 }
+    
+    private void cargadDatosInsciptos(){
+          //borrarfilasT
+          Ealumno eleg=(Ealumno)jcbSalumno.getSelectedItem();
+          ArrayList<Materia> list=(ArrayList)Insc.obtenerMateriasCursadas(eleg.getIdAlumno());
+         
+           for(Materia m:list){
+             formatoTabla.addRow(new Object[]{m.getIdMateria(),m.getNombre()});
+           }
+    }
 }

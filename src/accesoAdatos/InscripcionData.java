@@ -35,6 +35,8 @@ public class InscripcionData {
     public InscripcionData() {
         con = Coneccion.getConnection();
     }
+
+    
     
     public List<Inscripcion> obtenerInscripciones(){
         
@@ -76,37 +78,40 @@ public class InscripcionData {
         return actuales;
         
     }
-//    public List <String> obtenerMateriasCursadas(int idAlumno) {
-//      List<String> materias = new ArrayList<String>();
-//
-//       
-//          /* String sql = "SELECT inscripcion.idMateria, nombre, año FROM inscripcion,"
-//                    + " materia WHERE inscripcion.idMateria = materia.idMaterialn"
-//                    + "AND inscripcion.idAlumno = ?;";*/
-//          String sql ="SELECT materia.idMateria, materia.nombre, inscripcion.nota from materia "
-//                  + "JOIN inscripcion ON (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
-//             try {
-//            PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
-//            ps.setInt(1, idAlumno);
-//            ResultSet rs = ps.executeQuery();
-//       //    String materia;
-//            while (rs.next()) {
-//               // materia = new Materia();
-//                materias.addItem(rs.getInt("idMateria"));
-//                materias.setNombre(rs.getString("nombre"));
-//                materias.setAño(rs.getInt("año"));
-//                materias.add(materia);
-//              
-//            }
-//
-//            ps.close();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null,"Error al obtener Inscripciones."+ex.getMessage());
-//
-//}
-//
-//return materias;
-    //}
+    public List <Materia> obtenerMateriasCursadas(int idAlumno) {
+      List<Materia> materias = new ArrayList<Materia>();
+ List<Inscripcion> inscripciones = new ArrayList<Inscripcion>();
+       
+          /* String sql = "SELECT inscripcion.idMateria, nombre, año FROM inscripcion,"
+                    + " materia WHERE inscripcion.idMateria = materia.idMaterialn"
+                    + "AND inscripcion.idAlumno = ?;";*/
+          String sql ="SELECT materia.idMateria, materia.nombre, inscripcion.nota from materia "
+                  + "JOIN inscripcion ON (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
+             try {
+            PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ResultSet rs = ps.executeQuery();
+        Materia materia;
+        Inscripcion insc;
+            while (rs.next()) {
+                insc=new Inscripcion();
+               materia = new Materia();
+               insc.setNota(idAlumno);
+                materia.setIdMateria(rs.getInt("idMateria"));
+                materia.setNombre(rs.getString("nombre"));
+               // materia.setAño(rs.getInt("año"));
+                materias.add(materia);
+               inscripciones.add(insc);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al obtener Inscripciones."+ex.getMessage());
+
+}
+
+return materias;
+    }
     
     public List<Materia> obtenerMateriasNocursadas(int idAlumno){
         
