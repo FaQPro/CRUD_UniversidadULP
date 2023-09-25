@@ -177,15 +177,20 @@ this.dispose();
     }//GEN-LAST:event_jbsActionPerformed
 
     private void jbnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnActionPerformed
-        // VALIDACIONES
+        //ESTE ES EL CODIGO AL APRETAR EL BOTON NUEVA MATERIA
+        
+        // Validaciones varias
+        // Como usamos un mismo formulario para varias acciones, es posible que se intente agregar
+        // una materia (apretando el boton de agregar) mientras esta habilitado el cuadro de texto
+        // de Id Materia, debajo, chequea eso y en el caso que haya algo escrito, avisa que no será tenido
+        // en cuenta ya que el codigo de materia lo asigna el sistema automaticamente
         String idMat=jtcodigo.getText();
         if  (!idMat.isEmpty()){
             JOptionPane.showMessageDialog(this,"El codigo de materia se agregará automaticamente por el sistema");
             jtcodigo.setText(null);
-         
         }
         
-        
+        // Debajo se valida que se ingrese una nombre de materia y un año
         String nomMat=jtnom.getText();
         boolean estadoMat=true;
         int añoM=1;
@@ -194,61 +199,78 @@ this.dispose();
            return;
         }else {
             String añoMat=jtaño.getText();
-                if (añoMat.isEmpty()){
-                    JOptionPane.showMessageDialog(this,"Debe ingresar el año de la materia");
-                    return;
-                }else {
-                    añoM=Integer.parseInt(añoMat);
-                    if( jRestadoMat.isSelected()){
-                        estadoMat=true;
-                    }else estadoMat=false;
-                }Materia nueva=new Materia(nomMat,añoM,estadoMat);
-                MateriaData mat=new MateriaData();
-                boolean encontrado=mat.buscarNombreMateria(nueva);
-                //System.out.println("imprimo encontrado" + encontrado);
-                if (encontrado==true){
-                    JOptionPane.showMessageDialog(this,"Esa materia ya existe");
-                    return;
-                }else{
-                        mat.guardarMateria(nueva);} 
+            if (añoMat.isEmpty()){
+                JOptionPane.showMessageDialog(this,"Debe ingresar el año de la materia");
+                return;
+            }else {
+                añoM=Integer.parseInt(añoMat);
+                if( jRestadoMat.isSelected()){
+                  estadoMat=true;
+                }else estadoMat=false;
+                }
+            
+            //Debajo creo una materia con los datos obtenidos del formulario (ya validados)
+            Materia nueva=new Materia(nomMat,añoM,estadoMat);
+            
+            //Debajo creo un objeto MateriaData para acceder a los metodos
+            MateriaData mat=new MateriaData();
+            
+            //Debajo compruebo si la materia que se quiere agregar ya existe
+            //utilizando el metodo buscarNombreMateria
+            boolean encontrado=mat.buscarNombreMateria(nueva);
+            if (encontrado==true){
+                JOptionPane.showMessageDialog(this,"Esa materia ya existe");
+                return;
+            }else{
+                //Como el resultado de la busqueda es negativo, llamo al metodo GuardarMateria y limpio el 
+                //formulario
+                mat.guardarMateria(nueva);} 
                 limpiarForm();
-                
-                    
-                    
-                    
+    
     }//GEN-LAST:event_jbnActionPerformed
     }
     
     private void jbbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbbActionPerformed
+        //ESTE ES EL CODIGO AL APRETAR EL BOTON BUSCAR
+        
         String codMat=jtcodigo.getText();
+        //Nuevamente, usar un mismo formulario para varias acciones puede traer problemas
+        //aqui se intenta establecer si el usuario esta queriendo agregar o modificar una nueva materia
+        //por eso se trata de controlar la accesibilidad a los distintos botones o cuadros de texto segun 
+        //que esté haciendo el usuario
+        
         boolean estadobot=jtcodigo.isEnabled();
-        //System.out.println(estadobot);
+        
         if (estadobot!=true){
             jtcodigo.setEnabled(true);
             limpiarForm();
             jbg.setEnabled(false);
             return;
         }
-                
+        //Devajo se valida que haya algun codigo escrito a buscar        
         int idMat=0;
         if (codMat.isEmpty()){
             JOptionPane.showMessageDialog(this,"Debe ingresar el codigo de la materia a buscar");
         }else{
-        try {
-        idMat= Integer.parseInt(codMat);
-        } catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this,"Revise el codigo ingresado");
-            jtcodigo.setText(null);
-            return;
-        }
+             try {
+                idMat= Integer.parseInt(codMat);
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(this,"Revise el codigo ingresado");
+                jtcodigo.setText(null);
+                return;
+            }
         
-        String nomMat="";
-        //int añoMat=0;
-        boolean estMat=true;
-        MateriaData mat=new MateriaData();
-        jtcodigo.setEnabled(false);
-        String sql= "SELECT * FROM materia Where Idmateria= ?";
-        PreparedStatement ps;
+            String nomMat="";
+            boolean estMat=true;
+            MateriaData mat=new MateriaData();
+            jtcodigo.setEnabled(false);
+    
+        
+        //Habiendo atravesado las valicaciones, se procede a buscar los datos para completar el formulario
+        //Se pudo haber hecho con un metodo dentro de Materia Data... pero me di cuenta despues de hacerlo
+        
+            String sql= "SELECT * FROM materia Where Idmateria= ?";
+            PreparedStatement ps;
             try {
                 ps = (PreparedStatement) mat.con.prepareStatement(sql);
                 ps.setInt(1, idMat);
@@ -259,63 +281,64 @@ this.dispose();
                     estMat=rs.getBoolean(4);
                     if(estMat==true){
                         jRestadoMat.setSelected(true);
-                        
                     }else {
                         jRestadoMat.setSelected(false);
-                    }
-                jbg.setEnabled(true);
-                jtcodigo.setEnabled(false);
+                        }
+                    jbg.setEnabled(true);
+                    jtcodigo.setEnabled(false);
                 }
                 rs.close();
                 ps.close();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this,"error");
-            }
-        
-        
-        
-        
-        
+               JOptionPane.showMessageDialog(this,"Error buscando la materia");
+           }
+                                   
 
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jbbActionPerformed
 
     private void jbgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbgActionPerformed
-            String nomMat=jtnom.getText();
-            String añoM=(jtaño.getText());
-            if(nomMat.isEmpty()){
-                JOptionPane.showMessageDialog(this,"El campo nombre no puede estar vacío");
-                jtnom.requestFocus();
-                return;
-                
-            }
-            if(añoM.isEmpty()){
-                JOptionPane.showMessageDialog(this,"El campo año no puede estar vacío");
-                jtaño.requestFocus();
-                return;
-            }
+        //ESTE ES EL CODIGO DEL BOTON MODIFICAR
+        //Aquí toma la información de los cuadros de texto y del radio buton y llama al metodo
+        //modificar materia de Materia Data
         
-            MateriaData mat=new MateriaData();
-            int idMat=0;
-            try{
-            idMat=Integer.parseInt(jtcodigo.getText());}
-            catch (NumberFormatException r){
-                JOptionPane.showMessageDialog(this,"Error, codigo materia cambiado o erroneo");
-                jtcodigo.setText(null);
-                return;
-                        
-                
-            }
+        String nomMat=jtnom.getText();
+        String añoM=(jtaño.getText());
+        //Validaciones para que no haya campos vacios
+        if(nomMat.isEmpty()){
+            JOptionPane.showMessageDialog(this,"El campo nombre no puede estar vacío");
+            jtnom.requestFocus();
+            return;
+        }
+        
+        if(añoM.isEmpty()){
+            JOptionPane.showMessageDialog(this,"El campo año no puede estar vacío");
+            jtaño.requestFocus();
+            return;
+        }
+        
+        //Creo un nuevo objeto Materia Data con el cual acceder a los metodos
+        MateriaData mat=new MateriaData();
+        int idMat=0;
+        try{
+            idMat=Integer.parseInt(jtcodigo.getText());
+        }catch (NumberFormatException r){
+            JOptionPane.showMessageDialog(this,"Error, codigo materia cambiado o erroneo");
+            jtcodigo.setText(null);
+            return;
+           }
                       
             boolean estMat;
             if (jRestadoMat.isSelected()){
                 estMat=true;
-                
             }else{
-                estMat=false;}
+                estMat=false;
+                }
             int añoMat=Integer.parseInt(añoM);
+            //Aca creo una nueva Materia, con los datos tomados del formulario
             Materia modMat=new Materia(idMat,nomMat,añoMat,estMat);
+            //Llamo al método modificar Materia, pasando como parametro la "Materia" creada arriba
             mat.modificarMateria(modMat);
             limpiarForm();
             jbg.setEnabled(false);

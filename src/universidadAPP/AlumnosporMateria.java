@@ -24,12 +24,16 @@ public class AlumnosporMateria extends javax.swing.JInternalFrame {
     /**
      * Creates new form AlumnosporMateria
      */
+    
+    //Creamos el formato para la Jtable
     private DefaultTableModel formatoTabla = new DefaultTableModel();
     
     
     public AlumnosporMateria() {
         initComponents();
+        //Llamo la funcion que limpia el formulario y la tabla por si tiene otros resultados
         limpioForm();
+        //LLamo la funcion que carga la lista Combo
         cargoListaMat();
         
     }
@@ -151,21 +155,30 @@ public class AlumnosporMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbMateriaActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        // TODO add your handling code here:
-        
+        //ESTE ES EL CODIGO DEL BOTON BUSCAR
+        //Debajo elimino el contenido de la tabla, util cuando se hace mas de una búsqueda
         while (formatoTabla.getRowCount()>0){
-        formatoTabla.removeRow(0);}
+        formatoTabla.removeRow(0);
+        }
      
-        
+        //Creo un nuevo objeto tipo Materia Data para acceder a los metodos y funciones
         MateriaData mat=new MateriaData();
-    String materiaCombo;
+        String materiaCombo;
         materiaCombo = (String) jcbMateria.getSelectedItem();
+        //llamo a la funcion de materia Data, que recibe un nombre de materia (del combo) y devuelve
+        //el id de la materia, que será usado para buscar en la tabla de inscripciones
+        int idMat=mat.devuelveIdMateria(materiaCombo);
         
-    int idMat=mat.devuelveIdMateria(materiaCombo);
-    InscripcionData insc = new InscripcionData();
-    ArrayList<Ealumno> aluMat = new ArrayList<>();
-    aluMat=(ArrayList<Ealumno>) insc.obtenerAlumnosporMateria(idMat);
-    for (Ealumno datos : aluMat){
+        //Creo un objeto de Inscripcion Data, para acceder a sus metodos y funciones
+        InscripcionData insc = new InscripcionData();
+        
+        // Creo un array list de alumnos que va a contener el resultado de la busqueda SQL
+        ArrayList<Ealumno> aluMat = new ArrayList<>();
+        //Asigno en la variable aluMat el resultado de la funcion que devuelve justamente un array de 
+        //alumnos que se encuentran inscriptios (ver codigo en Incripcion Data
+        aluMat=(ArrayList<Ealumno>) insc.obtenerAlumnosporMateria(idMat);
+        //Debajo recorro el Array list y voy agregando las filas a la Jtable
+        for (Ealumno datos : aluMat){
         formatoTabla.addRow(new Object[]{datos.getIdAlumno(),datos.getDni(),datos.getApellido(),datos.getNombre()});
          
         
@@ -194,6 +207,7 @@ public class AlumnosporMateria extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
 public void cargoListaMat(){
+    //Esta metodo utiliza la funcion MateriasTodas de Inscripcion data para cargar de datos el JComboBox
 MateriaData mat=new MateriaData();
 ArrayList<String> listadoMateriasCombo=new ArrayList<>();
 listadoMateriasCombo=mat.MateriasTodas();
@@ -204,6 +218,7 @@ for (String nombreMat : listadoMateriasCombo){
 
 }
 public void limpioForm(){
+    //Metodo que limpia el formulario y le da formato a la tabla
     jcbMateria.removeAllItems();
     jtablaMateria.removeAll();
     formatearTabla();
@@ -211,6 +226,7 @@ public void limpioForm(){
     
 }
 private void formatearTabla(){
+    //Metodo que le da formato a la tabla
     formatoTabla.addColumn("idAlumno");
     formatoTabla.addColumn("Dni");
     formatoTabla.addColumn("Apellido");
