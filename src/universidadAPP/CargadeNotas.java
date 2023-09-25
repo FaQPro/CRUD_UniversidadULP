@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import universidadAPP.Entidades.Ealumno;
 import universidadAPP.Entidades.Inscripcion;
 import universidadAPP.Entidades.Materia;
+import universidadAPP.Entidades.MateriasYnotas;
 /**
  *
  * @author perey
@@ -49,27 +50,19 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jcbSalumno = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jbguardar = new javax.swing.JButton();
         jbsalir = new javax.swing.JButton();
         ApeNom = new javax.swing.JLabel();
+        jTdni = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTapellido = new javax.swing.JTextField();
 
         jLabel1.setText("Carga de Notas");
 
-        jLabel2.setText("Selecciones un alumno :");
-
-        jcbSalumno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jcbSalumnoMouseClicked(evt);
-            }
-        });
-        jcbSalumno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbSalumnoActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("Ingrese DNI del Alumno:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,31 +83,54 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Apellido:");
+
+        jTapellido.setEditable(false);
+        jTapellido.setBackground(new java.awt.Color(228, 211, 211));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(12, 12, 12)
+                        .addComponent(jbguardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbsalir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(132, 132, 132)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jcbSalumno, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ApeNom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(28, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(jbguardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbsalir)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(132, 132, 132)
+                                        .addComponent(jLabel1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(4, 4, 4))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addGap(18, 18, 18)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTapellido, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                            .addComponent(jTdni))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ApeNom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
@@ -122,14 +138,19 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jcbSalumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ApeNom, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addComponent(ApeNom, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbguardar)
                     .addComponent(jbsalir))
@@ -143,87 +164,61 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
         this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jbsalirActionPerformed
-
-    private void jcbSalumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSalumnoActionPerformed
-        // TODO add your handling code here:
-//        Ealumno aux=(Ealumno)jcbSalumno.getSelectedItem();
-//        
-//        ArrayList<Materia>lista=(ArrayList)Insc.obtenerMateriasCursadas(aux.getIdAlumno());
-//        for(Materia m:lista){
-//             formatoTabla.addRow(new Object[]{m.getIdMateria(),m.getNombre(),m.getAño()});
-//        }
-//       
-//   
-        
-    }//GEN-LAST:event_jcbSalumnoActionPerformed
     
-    private void jcbSalumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbSalumnoMouseClicked
-          
-//List<String> materias = new ArrayList<String>();
-//       String aux=jcbSalumno.getSelectedItem().toString() ;
-//       String auxid =aux.substring(0,1);
-//        System.out.println(""+auxid);
-//       for (int i=1 ; i<=3 ; i++){
-//           
-//           
-//       }
-           
-       
-//        auxid=jcbSalumno.getSelectedItem();
-//        System.out.println("id"auxid);
-          /* String sql = "SELECT inscripcion.idMateria, nombre, año FROM inscripcion,"
-                    + " materia WHERE inscripcion.idMateria = materia.idMaterialn"
-                    + "AND inscripcion.idAlumno = ?;";*/
-//          String sql ="SELECT materia.idMateria, materia.nombre, inscripcion.nota from materia "
-//                  + "JOIN inscripcion ON (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
-//             try {
-//                PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
-//              ps.setInt(1, auxid.hashCode());
-//                ResultSet rs = ps.executeQuery();
-//                 String materia;
-//            while (rs.next()) {
-//               // materia = new Materia();
-//                formatoTabla.addRow(new Object[]{rs.getInt("idMateria"),rs.getString("nombre"),rs.getInt("nota")});
-//               
-//            }
-//
-//            ps.close();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null,"Error al obtener Inscripciones."+ex.getMessage());
-//
-//}
-
-
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbSalumnoMouseClicked
+        //PRIMERO, VOY A OBTENER EL ID DEL ALUMNO A TRVES DE DNI
+        
+        //creo un objeto tipo AlumnoData para acceder a sus metodos
+        AlumnoData alu=new AlumnoData();
+        InscripcionData insc=new InscripcionData();
+        int dni=Integer.parseInt(jTdni.getText());
+        
+        Ealumno alumno=new Ealumno();
+       
+        alumno=alu.buscarAlumnoPorDni(dni);
+        jTapellido.setText(alumno.getApellido());
+        
+        //Obtengo el id del alumno
+        int idAlu=alumno.getIdAlumno();
+        //obtengo un array con las materias y las notas del alumno y la cargo en el Jtable
+        ArrayList<MateriasYnotas> lista=new ArrayList<>();
+        lista=insc.obtenerDatosAlumnoNota(idAlu);
+        for(MateriasYnotas m:lista){
+             formatoTabla.addRow(new Object[]{m.getIdMateria(),m.getNombre(),m.getNota()});
+           }
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApeNom;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTapellido;
+    private javax.swing.JTextField jTdni;
     private javax.swing.JButton jbguardar;
     private javax.swing.JButton jbsalir;
-    private javax.swing.JComboBox<String> jcbSalumno;
     // End of variables declaration//GEN-END:variables
 
 
     public void cargoListaAlu(){
-
-      int  auxid;
-
+        int auxid;
         AlumnoData alu=new AlumnoData();
-        
-ArrayList<Ealumno> listadoAlumnoCombo=new ArrayList<>();
- MateriaData mat=new MateriaData();
-//int idMat=mat.devuelveIdMateria(mat.MateriasTodas().toString());
-listadoAlumnoCombo=(ArrayList<Ealumno>) alu.ListarAlumnosidape();
+        ArrayList<Ealumno> listadoAlumnoCombo=new ArrayList<>();
+        MateriaData mat=new MateriaData();
+        //int idMat=mat.devuelveIdMateria(mat.MateriasTodas().toString());
+        listadoAlumnoCombo=(ArrayList<Ealumno>) alu.ListarAlumnosidape();
         for (Ealumno alux : listadoAlumnoCombo){
-    String item = alux.getIdAlumno()+"  -"+alux.getApellido();
-             
-    jcbSalumno.addItem(item);
+        //jcbSalumno.addItem(new Object[]{alux.getIdAlumno(),alux.getApellido()});
+        
 }
     }
     

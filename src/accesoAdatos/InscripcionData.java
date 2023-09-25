@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 import universidadAPP.Alumno;
 import universidadAPP.Entidades.Ealumno;
 import universidadAPP.Entidades.Materia;
+import universidadAPP.Entidades.MateriasYnotas;
 
 
 /**
@@ -287,5 +288,22 @@ return materias;
         
     }
 
+    public ArrayList<MateriasYnotas> obtenerDatosAlumnoNota(int idAlumno){
+        String sql="SELECT materia.idMateria,materia.nombre, inscripcion.nota from materia join inscripcion on (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
+        ArrayList<MateriasYnotas> resultado=new ArrayList<>();
+        try {
+            PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+            resultado.add(new MateriasYnotas(rs.getInt(1),rs.getString(2),rs.getInt(3)));
+                    }
+            return resultado;
+            
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al obtener datos alumno y nota");
+        }
+        return null;
+    }
     
 }
