@@ -86,7 +86,7 @@ public class InscripcionData {
           /* String sql = "SELECT inscripcion.idMateria, nombre, año FROM inscripcion,"
                     + " materia WHERE inscripcion.idMateria = materia.idMaterialn"
                     + "AND inscripcion.idAlumno = ?;";*/
-          String sql ="SELECT materia.idMateria, materia.nombre, inscripcion.nota from materia "
+          String sql ="SELECT materia.idMateria, materia.nombre,materia.año, inscripcion.nota from materia "
                   + "JOIN inscripcion ON (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
              try {
             PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
@@ -100,7 +100,7 @@ public class InscripcionData {
                insc.setNota(idAlumno);
                 materia.setIdMateria(rs.getInt("idMateria"));
                 materia.setNombre(rs.getString("nombre"));
-               // materia.setAño(rs.getInt("año"));
+                materia.setAño(rs.getInt("año"));
                 materias.add(materia);
                inscripciones.add(insc);
             }
