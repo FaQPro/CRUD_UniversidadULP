@@ -69,7 +69,7 @@ public class InscripcionData {
             //    Materia mat = matD.buscarMateria(rs.getInt("idMateria")) ; aguardo metodo buscar materia
             insc.setAlumno(alu);
             insc.setMateria(mat);
-            insc.setNota(rs.getDouble("nota"));
+            insc.setNota((int) rs.getDouble("nota"));
             actuales.add(insc);
             }
             ps.close();
@@ -138,7 +138,7 @@ return materias;
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al obtener Inscripciones."+ex.getMessage());
-
+            ex.printStackTrace();
 }
 
 return materias;

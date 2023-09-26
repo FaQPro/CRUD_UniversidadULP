@@ -6,7 +6,7 @@
 package universidadAPP.Entidades;
 
 import java.time.LocalDate;
-
+import java.lang.String;
 /**
  *
  * @author rodrigo
@@ -94,8 +94,9 @@ public class Ealumno {
     //armo el to string con todos los datos;
     @Override
     public String toString() {
-        return "Ealumno{" + "idAlumno=" + idAlumno + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", estado=" + estado + '}';
+        return  dni+" -"+ apellido+"- "+ nombre;
     }
+    
     
     
     
