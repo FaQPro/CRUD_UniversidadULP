@@ -2,10 +2,12 @@
 package universidadAPP;
 
 import com.mysql.jdbc.PreparedStatement;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
@@ -28,7 +30,7 @@ public class Alumno extends javax.swing.JFrame {
             conexion = (Connection) DriverManager.getConnection(URL, USER, PASS);
             JOptionPane.showMessageDialog(null, "Conexión Exitosa");
         
-        }catch(Exception ex){
+        }catch(HeadlessException | ClassNotFoundException | SQLException ex){
             System.err.println("Error: "+ex);
         }
         return conexion;
