@@ -217,7 +217,7 @@ public class FormularioInscripciones extends javax.swing.JInternalFrame {
           int idMat=(Integer)modelo.getValueAt(fs, 0);
           String mat=(String)modelo.getValueAt(fs,1);
           int amat=(Integer)modelo.getValueAt(fs, 2);
-        //   System.out.println("años"+amat);
+          
           Materia m = new Materia(idMat , mat,amat,true);
              Inscripcion i = new Inscripcion(amat,a,m);     
         inscData.guardarInscripcion(i);
