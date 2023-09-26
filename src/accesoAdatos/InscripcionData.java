@@ -81,12 +81,12 @@ public class InscripcionData {
     }
     public List <Materia> obtenerMateriasCursadas(int idAlumno) {
       List<Materia> materias = new ArrayList<Materia>();
- List<Inscripcion> inscripciones = new ArrayList<Inscripcion>();
+        List<Inscripcion> inscripciones = new ArrayList<Inscripcion>();
        
           /* String sql = "SELECT inscripcion.idMateria, nombre, año FROM inscripcion,"
                     + " materia WHERE inscripcion.idMateria = materia.idMaterialn"
                     + "AND inscripcion.idAlumno = ?;";*/
-          String sql ="SELECT materia.idMateria, materia.nombre, inscripcion.nota from materia "
+          String sql ="SELECT materia.idMateria, materia.nombre,materia.año, inscripcion.nota from materia "
                   + "JOIN inscripcion ON (materia.idMateria=inscripcion.idMateria) WHERE inscripcion.idAlumno=?";
              try {
             PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
@@ -100,7 +100,7 @@ public class InscripcionData {
                insc.setNota(idAlumno);
                 materia.setIdMateria(rs.getInt("idMateria"));
                 materia.setNombre(rs.getString("nombre"));
-               // materia.setAño(rs.getInt("año"));
+               materia.setAño(rs.getInt("año"));
                 materias.add(materia);
                inscripciones.add(insc);
             }
@@ -179,7 +179,7 @@ return materias;
     
     
 
-     public List<Inscripcion> obtenerInscripcionesporAlumno(int idAlumno){
+    public List<Inscripcion> obtenerInscripcionesporAlumno(int idAlumno){
         
        ArrayList<Inscripcion> actuales = new ArrayList<>();
        String sql ="SELECT * FROM inscripcion WHERE idAlumnmo=?";

@@ -99,7 +99,12 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+<<<<<<< Updated upstream
         jbguardar.setText("Guardar Cambios");
+=======
+        jbguardar.setText("Guardar");
+        jbguardar.setEnabled(false);
+>>>>>>> Stashed changes
         jbguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbguardarActionPerformed(evt);
@@ -181,7 +186,7 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbguardar)
                     .addComponent(jbsalir))
                 .addGap(30, 30, 30))
@@ -237,6 +242,7 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+<<<<<<< Updated upstream
     private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
     
     
@@ -305,6 +311,11 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
         
         
         
+=======
+    private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
+      
+        Insc.actualizarNota(WIDTH, WIDTH, WIDTH);
+>>>>>>> Stashed changes
     }//GEN-LAST:event_jbguardarActionPerformed
 
 
@@ -344,6 +355,7 @@ private void formatoTabla(){
                     
 }
     public void limpioForm(){
+<<<<<<< Updated upstream
    
   formatoTabla.setNumRows(0);
     formatoTabla();
@@ -374,6 +386,21 @@ private void formatoTabla(){
         
         
         
+=======
+   // jcbSalumno.removeAllItems();
+  formatoTabla.setNumRows(0);
+    formatoTabla();
+}
+    
+    private void cargadDatosInsciptos(){
+          //borrarfilasT
+        //  Ealumno eleg=(Ealumno)jcbSalumno.getSelectedItem();
+       //   ArrayList<Materia> list=(ArrayList)Insc.obtenerMateriasCursadas(eleg.getIdAlumno());
+         
+         //  for(Materia m:list){
+         //    formatoTabla.addRow(new Object[]{m.getIdMateria(),m.getNombre()});
+       //    }
+>>>>>>> Stashed changes
     }
     
     

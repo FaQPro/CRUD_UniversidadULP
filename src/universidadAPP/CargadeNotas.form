@@ -87,9 +87,9 @@
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="154" max="-2" attributes="0"/>
               <EmptySpace pref="50" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jbguardar" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jbsalir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbsalir" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
@@ -155,7 +155,12 @@
     </Container>
     <Component class="javax.swing.JButton" name="jbguardar">
       <Properties>
+<<<<<<< Updated upstream
         <Property name="text" type="java.lang.String" value="Guardar Cambios"/>
+=======
+        <Property name="text" type="java.lang.String" value="Guardar"/>
+        <Property name="enabled" type="boolean" value="false"/>
+>>>>>>> Stashed changes
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbguardarActionPerformed"/>
