@@ -266,19 +266,19 @@ return materias;
         
     }
     
-    public void actualizarNota(int idAlumno,int idMateria,double nota){
+    public void actualizarNota(int idAlumno,int idMateria,int nota){
         
         try {
             String sql="UPDATE inscripcion SET nota = ? WHERE idAlumno = ? and idMateria = ?";
             PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
-            ps.setDouble(1,nota);
+            ps.setInt(1, nota);
             ps.setInt(2, idAlumno);
             ps.setInt(3, idMateria);
            int filas = ps.executeUpdate();
            
            if (filas>0){
                
-               JOptionPane.showMessageDialog(null,"Nota actualizada con exito");
+               //JOptionPane.showMessageDialog(null,"Nota actualizada con exito");
                
                
            }

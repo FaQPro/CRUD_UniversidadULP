@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableColumnModel;
 import universidadAPP.Entidades.Ealumno;
 import universidadAPP.Entidades.Inscripcion;
 import universidadAPP.Entidades.Materia;
@@ -32,8 +33,22 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
      */
     InscripcionData Insc= new InscripcionData();
      private Connection con = null;
-      private DefaultTableModel formatoTabla = new DefaultTableModel();
+      private DefaultTableModel formatoTabla;
+      
+      
     public CargadeNotas() {
+        this.formatoTabla = new DefaultTableModel(){
+            public boolean isCellEditable(int fila, int columna){
+                if (columna==2){
+                    return true;
+                }
+                return false;
+                
+                
+            }
+            
+            
+        };
         initComponents();
          limpioForm();
         cargoListaAlu();
@@ -72,9 +87,24 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
                 "Codigo", "Nombre", "Nota"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jTable1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTable1PropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
-        jbguardar.setText("Guardar");
+        jbguardar.setText("Guardar Cambios");
+        jbguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbguardarActionPerformed(evt);
+            }
+        });
 
         jbsalir.setText("Salir");
         jbsalir.addActionListener(new java.awt.event.ActionListener() {
@@ -107,9 +137,9 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
                         .addComponent(jbguardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbsalir))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -124,12 +154,12 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
                                                 .addComponent(jLabel3)
                                                 .addGap(18, 18, 18)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTapellido, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                            .addComponent(jTdni))))
+                                            .addComponent(jTapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTdni, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ApeNom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jButton1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ApeNom)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(39, 39, 39))
         );
@@ -167,15 +197,29 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        //Validaciones
+        String tdni=jTdni.getText();
+        int dni=0;
+        if (tdni.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un Dni");
+            return;
+        }
+              
+        try{
+        dni=Integer.parseInt(tdni);
+        }catch (NumberFormatException n){
+            JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+            jTdni.setText(null);
+            jTdni.requestFocus();
+            return;       
+        }      
         //PRIMERO, VOY A OBTENER EL ID DEL ALUMNO A TRVES DE DNI
         
         //creo un objeto tipo AlumnoData para acceder a sus metodos
         AlumnoData alu=new AlumnoData();
         InscripcionData insc=new InscripcionData();
-        int dni=Integer.parseInt(jTdni.getText());
-        
+               
         Ealumno alumno=new Ealumno();
-       
         alumno=alu.buscarAlumnoPorDni(dni);
         jTapellido.setText(alumno.getApellido());
         
@@ -192,6 +236,76 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
+    
+    
+    }//GEN-LAST:event_jTable1PropertyChange
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        //int filaSeleccionada=jTable1.getSelectedRow();
+        //int nota=(Integer) formatoTabla.getValueAt(filaSeleccionada,2);
+    
+    
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
+        // TODO add your handling code here:
+        //Este metodo va a recorrer la tabla y hacer un update por cada fila
+        
+        //Valido que haya algo en la tabla
+        int filas=jTable1.getRowCount();
+        if (filas==0){
+            JOptionPane.showMessageDialog(this, "La tabla está vacia, busque un alumno primero");
+            return;
+                    
+        }
+        //Valido que las notas sean correctas
+        if (validoNotas()==false){
+            JOptionPane.showMessageDialog(this,"Revise sólo se acepta numeros entre 0 y 10");
+            return;
+                    
+        }
+        
+        
+        
+        
+        AlumnoData alu=new AlumnoData();
+        InscripcionData insc=new InscripcionData();
+        int dni=Integer.parseInt(jTdni.getText());
+        Ealumno alumno=new Ealumno();
+        alumno=alu.buscarAlumnoPorDni(dni);
+       //Obtengo el id del alumno
+        int idAlu=alumno.getIdAlumno();
+        int cantFilas=formatoTabla.getRowCount();
+        int nota;
+        int idmat;
+                Object notaTabla;
+        Object idTabla;
+        String NotaSt;
+        String idSt;
+        for (int i=0;i<cantFilas;i++){
+            idTabla=formatoTabla.getValueAt(i,0);
+            notaTabla=formatoTabla.getValueAt(i, 2);
+            NotaSt=notaTabla.toString();
+            idSt=idTabla.toString();
+            nota=Integer.parseInt(NotaSt);
+            idmat=Integer.parseInt(idSt);
+                
+        //    System.out.println("IdMat:" + idMat);
+        //    System.out.println("nota:"+nota);
+            insc.actualizarNota(idAlu, idmat, nota);
+                     
+        }
+        JOptionPane.showMessageDialog(this,"Datos Modificados con éxito");
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jbguardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -225,24 +339,42 @@ public class CargadeNotas extends javax.swing.JInternalFrame {
 private void formatoTabla(){
     formatoTabla.addColumn("Codigo");
     formatoTabla.addColumn("Nombre");
-    formatoTabla.addColumn("Nota");
-   
+    formatoTabla.addColumn("Nota (Doble Click Edita ");
     jTable1.setModel(formatoTabla);
                     
 }
     public void limpioForm(){
-    jcbSalumno.removeAllItems();
+   
   formatoTabla.setNumRows(0);
     formatoTabla();
 }
-    
-    private void cargadDatosInsciptos(){
-          //borrarfilasT
-          Ealumno eleg=(Ealumno)jcbSalumno.getSelectedItem();
-          ArrayList<Materia> list=(ArrayList)Insc.obtenerMateriasCursadas(eleg.getIdAlumno());
-         
-           for(Materia m:list){
-             formatoTabla.addRow(new Object[]{m.getIdMateria(),m.getNombre()});
-           }
+    public boolean validoNotas(){
+        Object notaTabla;
+        String notaSt;
+        int nota=0;
+        int filas=jTable1.getRowCount();
+        for (int i=0; i<filas;i++){
+            notaTabla=formatoTabla.getValueAt(i,2);
+            notaSt=notaTabla.toString();
+            try{
+            nota=Integer.parseInt(notaSt);
+            }catch (NumberFormatException n){
+                
+                return false;
+            }
+            if (nota<=0 || nota>10){
+                
+                return false;
+            }         
+            
+        }
+        return true;
+        
+        
+        
+        
+        
     }
+    
+    
 }
