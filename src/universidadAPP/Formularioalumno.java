@@ -24,9 +24,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Formularioalumno extends javax.swing.JInternalFrame {
     
-    private Connection con=null;
-    AlumnoData datosAlumno=new AlumnoData();
-    Ealumno alumno = new Ealumno();
+    //private Connection con=null;
+    //AlumnoData datosAlumno=new AlumnoData();
+    //Ealumno alumno = new Ealumno();
     
     
     
@@ -212,6 +212,8 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbeliminarActionPerformed
 
     private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
+        AlumnoData datosAlumno=new AlumnoData();
+        Ealumno alumno = new Ealumno();
         try {
             Integer dni=Integer.parseInt(jtDNI.getText());
             String nombre=jtnombre.getText();
@@ -275,7 +277,7 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
            JOptionPane.showMessageDialog(this, "algun dato es invalido -REVISE POR FAVOR-");
                  }
      limpiarCampos();
-     alumno=null;
+     //alumno=null;
         
     }//GEN-LAST:event_jbnuevoActionPerformed
 
@@ -285,7 +287,8 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbsalirActionPerformed
 
     private void jbbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbbuscarActionPerformed
-       
+       AlumnoData datosAlumno=new AlumnoData();
+        Ealumno alumno = new Ealumno();
      try{   
         Integer dni=Integer.parseInt(jtDNI.getText());
         alumno=datosAlumno.buscarAlumnoPorDni(dni);
