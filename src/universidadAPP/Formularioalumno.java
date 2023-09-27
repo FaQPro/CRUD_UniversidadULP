@@ -54,7 +54,6 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
         jbsalir = new javax.swing.JButton();
         jbbuscar = new javax.swing.JButton();
         jCestado = new javax.swing.JComboBox<>();
-        jTfecha = new javax.swing.JTextField();
         jRestado = new javax.swing.JRadioButton();
         jDfecha = new com.toedter.calendar.JDateChooser();
 
@@ -107,8 +106,6 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
 
         jCestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "activo", "inactivo" }));
 
-        jTfecha.setText("AAAA/MM/DD");
-
         jRestado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRestadoActionPerformed(evt);
@@ -126,7 +123,7 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlapellido)
                             .addComponent(jlnombre)
                             .addGroup(layout.createSequentialGroup()
@@ -141,9 +138,7 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jDfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(57, 57, 57)
@@ -193,9 +188,7 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
                     .addComponent(jCestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(jTfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6)
                     .addComponent(jDfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -219,18 +212,43 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbeliminarActionPerformed
 
     private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
-          
-        
-     alumno.setDni(Integer.parseInt(jtDNI.getText()));
-     alumno.setApellido(jtapellido.getText());
-     alumno.setNombre(jtnombre.getText());
-     String estado = jCestado.getSelectedItem().toString();
-        if (estado.equals("activo")) {
+        try {
+            Integer dni=Integer.parseInt(jtDNI.getText());
+            String nombre=jtnombre.getText();
+            String apellido=jtapellido.getText();
+            if (nombre.isEmpty()|| apellido.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "no deje campos vacios ");
+                return;
+            }
+            java.util.Date fechaNac=jDfecha.getDate();
+            LocalDate fechaNacimiento=fechaNac.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Boolean estado=jRestado.isSelected();
+            if(alumno==null){
+                
+                alumno=new Ealumno(dni,nombre,apellido,fechaNacimiento,estado);
+                datosAlumno.guardarAlumno(alumno);
+                
+            }else {
+                alumno.setDni(dni);
+                alumno.setApellido(apellido);
+                alumno.setNombre(nombre);
+                alumno.setFechaNacimiento(fechaNacimiento);
+                datosAlumno.modificarAlumno(alumno);
+            }
             
-            alumno.setEstado(true);
+        } catch (NumberFormatException e) {
+           JOptionPane.showMessageDialog(this, "debe ingresar un dni valido");
            
+        }
+   
+        
+        
+    // PARA ESTADO POR COMBOBOX
+     /*String estado = jCestado.getSelectedItem().toString();
+        if (estado.equals("activo")) {
+            alumno.setEstado(true);
         }else alumno.setEstado(false);
-    alumno.setFechaNacimiento (LocalDate.parse(jTfecha.getText()));// TODO add your handling code here:
+        */
     }//GEN-LAST:event_jbguardarActionPerformed
 
     private void jbnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnuevoActionPerformed
@@ -294,7 +312,6 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JRadioButton jRestado;
-    private javax.swing.JTextField jTfecha;
     private javax.swing.JButton jbbuscar;
     private javax.swing.JButton jbeliminar;
     private javax.swing.JButton jbguardar;
