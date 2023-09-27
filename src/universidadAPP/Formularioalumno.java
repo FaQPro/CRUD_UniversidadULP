@@ -182,10 +182,10 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
                     .addComponent(jlnombre)
                     .addComponent(jtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRestado)
-                    .addComponent(jCestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCestado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
@@ -223,18 +223,19 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
             java.util.Date fechaNac=jDfecha.getDate();
             LocalDate fechaNacimiento=fechaNac.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Boolean estado=jRestado.isSelected();
-            if(alumno==null){
-                
-                alumno=new Ealumno(dni,nombre,apellido,fechaNacimiento,estado);
-                datosAlumno.guardarAlumno(alumno);
-                
-            }else {
+//            if(alumno ==null){
+//                
+//                alumno=new Ealumno(dni,apellido,nombre,fechaNacimiento,estado);
+//                datosAlumno.guardarAlumno(alumno);
+//                alumno=null;
+//            }else {
                 alumno.setDni(dni);
                 alumno.setApellido(apellido);
                 alumno.setNombre(nombre);
                 alumno.setFechaNacimiento(fechaNacimiento);
                 datosAlumno.modificarAlumno(alumno);
-            }
+                alumno=null;
+//            }
             
         } catch (NumberFormatException e) {
            JOptionPane.showMessageDialog(this, "debe ingresar un dni valido");
@@ -252,7 +253,27 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbguardarActionPerformed
 
     private void jbnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnuevoActionPerformed
+          try {
+            Integer dni=Integer.parseInt(jtDNI.getText());
+            String nombre=jtnombre.getText();
+            String apellido=jtapellido.getText();
+            if (nombre.isEmpty()|| apellido.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "no deje campos vacios ");
+                return;
+            }
+            java.util.Date fechaNac=jDfecha.getDate();
+            LocalDate fechaNacimiento=fechaNac.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Boolean estado=jRestado.isSelected();
+             alumno.setDni(dni);
+                alumno.setApellido(apellido);
+                alumno.setNombre(nombre);
+                alumno.setFechaNacimiento(fechaNacimiento);
+               
         
+                datosAlumno.guardarAlumno(alumno);
+                 } catch (NumberFormatException e) {
+           JOptionPane.showMessageDialog(this, "algun dato es invalido -REVISE POR FAVOR-");
+                 }
      limpiarCampos();
      alumno=null;
         
