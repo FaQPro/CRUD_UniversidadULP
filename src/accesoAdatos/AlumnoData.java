@@ -6,7 +6,6 @@ import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 import java.awt.HeadlessException;
 import java.sql.Connection;
-import java.sql.*;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +24,6 @@ public class AlumnoData {
     
     public AlumnoData (){
         con=Coneccion.getConnection();
-        System.out.println("Conexion establecida");
     }
     
     public void guardarAlumno(Ealumno alumno){
@@ -34,8 +32,7 @@ public class AlumnoData {
        
         
         try {
-          //PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql,java.sql.Statement.RETURN_GENERATED_KEYS);
-          PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+          PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql,java.sql.Statement.RETURN_GENERATED_KEYS);
           ps.setInt(1, alumno.getDni());
           ps.setString(2, alumno.getApellido());
           ps.setString(3, alumno.getNombre());
