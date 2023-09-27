@@ -24,9 +24,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Formularioalumno extends javax.swing.JInternalFrame {
     
-    private Connection con=null;
-    AlumnoData datosAlumno=new AlumnoData();
-    Ealumno alumno = new Ealumno();
+    //private Connection con=null;
+    //AlumnoData datosAlumno=new AlumnoData();
+    //Ealumno alumno = new Ealumno();
     
     
     
@@ -182,10 +182,10 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
                     .addComponent(jlnombre)
                     .addComponent(jtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRestado)
-                    .addComponent(jCestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCestado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
@@ -212,6 +212,8 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbeliminarActionPerformed
 
     private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
+        AlumnoData datosAlumno=new AlumnoData();
+        Ealumno alumno = new Ealumno();
         try {
             Integer dni=Integer.parseInt(jtDNI.getText());
             String nombre=jtnombre.getText();
@@ -254,7 +256,7 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
     private void jbnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnuevoActionPerformed
         
      limpiarCampos();
-     alumno=null;
+     //alumno=null;
         
     }//GEN-LAST:event_jbnuevoActionPerformed
 
@@ -264,7 +266,8 @@ public class Formularioalumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbsalirActionPerformed
 
     private void jbbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbbuscarActionPerformed
-       
+       AlumnoData datosAlumno=new AlumnoData();
+        Ealumno alumno = new Ealumno();
      try{   
         Integer dni=Integer.parseInt(jtDNI.getText());
         alumno=datosAlumno.buscarAlumnoPorDni(dni);
