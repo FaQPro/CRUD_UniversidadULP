@@ -32,6 +32,13 @@ public class Ealumno {
         this.fechaNacimiento = fechaNacimiento;
         this.estado = estado;
     }
+    public Ealumno(int dni, String apellido, String nombre, LocalDate fechaNacimiento, boolean estado) {
+        this.dni = dni;
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.fechaNacimiento = fechaNacimiento;
+        this.estado = estado;
+    }
     public Ealumno(int idAlumno,String apellido){
         this.idAlumno = idAlumno;
          this.apellido = apellido;
@@ -84,13 +91,8 @@ public class Ealumno {
         this.estado = estado;
     }
 
-    public Ealumno(int dni, String apellido, String nombre, LocalDate fechaNacimiento, boolean estado) {
-        this.dni = dni;
-        this.apellido = apellido;
-        this.nombre = nombre;
-        this.fechaNacimiento = fechaNacimiento;
-        this.estado = estado;
-    }
+    
+    
     //armo el to string con todos los datos;
     @Override
     public String toString() {
